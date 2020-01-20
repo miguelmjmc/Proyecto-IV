@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c7ac1a9bd5cd07f55dfc71a477b88ed1",
+    "content-hash": "8c36abc5d0ca64860f97a00beca811d2",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1324,6 +1324,41 @@
                 "sql"
             ],
             "time": "2014-01-12T16:20:24+00:00"
+        },
+        {
+            "name": "mjmc/asset-bundle",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/miguelmjmc/MJMCAssetBundle.git",
+                "reference": "c289741d7f4efa98605b4a1e770d30f7181858ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/miguelmjmc/MJMCAssetBundle/zipball/c289741d7f4efa98605b4a1e770d30f7181858ef",
+                "reference": "c289741d7f4efa98605b4a1e770d30f7181858ef",
+                "shasum": ""
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "MJMC\\Bundle\\AssetBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Miguel Malavé",
+                    "email": "miguel.mjmc@gmail.com"
+                }
+            ],
+            "time": "2019-09-23T21:12:24+00:00"
         },
         {
             "name": "monolog/monolog",
