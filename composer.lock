@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c36abc5d0ca64860f97a00beca811d2",
+    "content-hash": "eb038e377803904a5c815a4a7aadf2ff",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1359,6 +1359,41 @@
                 }
             ],
             "time": "2019-09-23T21:12:24+00:00"
+        },
+        {
+            "name": "mjmc/crud-bundle",
+            "version": "0.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/miguelmjmc/MJMCCrudBundle.git",
+                "reference": "b2a5d8f5d8923d6243b86d9a2bd9aaf9676e6643"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/miguelmjmc/MJMCCrudBundle/zipball/b2a5d8f5d8923d6243b86d9a2bd9aaf9676e6643",
+                "reference": "b2a5d8f5d8923d6243b86d9a2bd9aaf9676e6643",
+                "shasum": ""
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "MJMC\\Bundle\\CrudBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Miguel Malavé",
+                    "email": "miguel.mjmc@gmail.com"
+                }
+            ],
+            "time": "2020-01-21T22:00:49+00:00"
         },
         {
             "name": "monolog/monolog",

@@ -33,3 +33,8 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    AppBundle\Event\OperationLogSubscriber:
+        arguments: ['@request_stack', '@security.token_storage']
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
