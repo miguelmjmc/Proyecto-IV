@@ -7,6 +7,7 @@ use AppBundle\Entity\OperationLog;
 use AppBundle\Entity\ProductBrand;
 use AppBundle\Entity\ProductCategory;
 use AppBundle\Entity\SessionLog;
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +20,43 @@ class DatatableController extends Controller
     /**
      * @return JsonResponse
      *
-     * @Route("/list/sessionLog", name="session_log_list")
+     * @Route("/admin/user/list/user", name="user_list")
+     */
+    public function userListAction()
+    {
+        $collection = $this->getDoctrine()->getRepository(User::class)->findAll();
+
+        $data = array('data' => array());
+
+        /** @var User $item */
+        foreach ($collection as $item) {
+
+            $parameters = array(
+                'suffix' => 'Usuario',
+                'actions' => array('show', 'edit'),
+                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'User', 'id' => $item->getId())),
+            );
+
+            $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
+
+            $data['data'][] = array(
+                $item->getLastUpdate() instanceof \DateTime ? $item->getLastUpdate()->format('Y/m/d H:i:s') : '',
+                $item->getFullName(),
+                $item->getUsername(),
+                $item->getEmail(),
+                $item->hasRole('ROLE_SUPER_ADMIN') ? 'Administrador' : 'Operador',
+                $item->getStatus(),
+                $btn,
+            );
+        }
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @return JsonResponse
+     *
+     * @Route("/admin/list/sessionLog", name="session_log_list")
      */
     public function sessionLogListAction()
     {
@@ -43,7 +80,7 @@ class DatatableController extends Controller
     /**
      * @return JsonResponse
      *
-     * @Route("/list/operationLog", name="operation_log_list")
+     * @Route("/admin/list/operationLog", name="operation_log_list")
      */
     public function operationLogListAction()
     {
@@ -84,16 +121,17 @@ class DatatableController extends Controller
 
             $parameters = array(
                 'suffix' => 'Cliente',
-                'actions' => array('show', 'edit', 'delete'),
+                'actions' => array('show', 'edit'),
                 'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'Client', 'id' => $item->getId())),
             );
 
             $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
 
             $data['data'][] = array(
-                $item->getIdentityCard(),
+                $item->getLastUpdate() instanceof \DateTime ? $item->getLastUpdate()->format('Y/m/d H:i:s') : '',
+                $item->getIdentificationNumber(),
                 $item->getFullName(),
-                $item->getName(),
+                $item->getStatus(),
                 $btn,
             );
         }

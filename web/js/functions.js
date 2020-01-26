@@ -112,7 +112,7 @@ window.onload = function () {
                 selectedTextFormat: 'count'
             });
 
-            $(document).find('.selectpicker[read-only]').prop( 'disabled', true);
+            $(document).find('.selectpicker[read-only]').prop('disabled', true);
         });
 
         $(document).on('modal.success', function () {
@@ -121,11 +121,11 @@ window.onload = function () {
                 selectedTextFormat: 'count'
             });
 
-            $(document).find('.selectpicker[readonly]').prop( 'disabled', true);
+            $(document).find('.selectpicker[readonly]').prop('disabled', true);
         });
 
         $(document).on(events.form.preEvent, function () {
-            $(document).find('.selectpicker[disabled]').prop( 'disabled', false);
+            $(document).find('.selectpicker[disabled]').prop('disabled', false);
         })
     }
 
@@ -182,48 +182,42 @@ window.onload = function () {
 
             $(document).trigger(events.form.preEvent);
 
-            var form = ($(this).parents('form'));
+            var form = $(this).parents('form');
 
-            if (!(form[0].checkValidity())) {
-                form[0].reportValidity();
+            $(this).prop('disabled', true);
 
-                $(document).trigger(events.form.invalidEvent);
+            $(document).trigger(events.form.validEvent);
+
+            if ($(form).find('input[type="file"]')) {
+                $.ajax({
+                    url: form.attr('action'),
+                    type: form.attr('method'),
+                    data: new FormData($(form)[0]),
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    success: function (data, textStatus, jqXHR) {
+                        $(document).trigger(events.form.successEvent, [data, textStatus, jqXHR]);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $(document).trigger(events.form.errorEvent, [jqXHR, textStatus, errorThrown]);
+                    }
+                });
             } else {
-                $(this).prop('disabled', true);
-
-                $(document).trigger(events.form.validEvent);
-
-                if ($(form).find('input[type="file"]')) {
-                    $.ajax({
-                        url: form.attr('action'),
-                        type: form.attr('method'),
-                        data: new FormData($(form)[0]),
-                        contentType: false,
-                        processData: false,
-                        cache: false,
-                        success: function (data, textStatus, jqXHR) {
-                            $(document).trigger(events.form.successEvent, [data, textStatus, jqXHR]);
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            $(document).trigger(events.form.errorEvent, [jqXHR, textStatus, errorThrown]);
-                        }
-                    });
-                } else {
-                    $.ajax({
-                        url: form.attr('action'),
-                        type: form.attr('method'),
-                        data: form.serialize(),
-                        success: function (data, textStatus, jqXHR) {
-                            $(document).trigger(events.form.successEvent, [data, textStatus, jqXHR]);
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            $(document).trigger(events.form.errorEvent, [jqXHR, textStatus, errorThrown]);
-                        }
-                    });
-                }
-
-                $(document).trigger(events.form.postEvent);
+                $.ajax({
+                    url: form.attr('action'),
+                    type: form.attr('method'),
+                    data: form.serialize(),
+                    success: function (data, textStatus, jqXHR) {
+                        $(document).trigger(events.form.successEvent, [data, textStatus, jqXHR]);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $(document).trigger(events.form.errorEvent, [jqXHR, textStatus, errorThrown]);
+                    }
+                });
             }
+
+            $(document).trigger(events.form.postEvent);
         }
     );
 

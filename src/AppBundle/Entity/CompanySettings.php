@@ -110,13 +110,6 @@ class CompanySettings
     /**
      * @var string
      *
-     * @ORM\Column(name="googleplus", type="string", length=255)
-     */
-    private $googleplus;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="instagram", type="string", length=255)
      */
     private $instagram;
@@ -166,9 +159,10 @@ class CompanySettings
     /**
      * @var string
      *
-     * @ORM\Column(name="values", type="text")
+     * @ORM\Column(name="history", type="text")
      */
-    private $values;
+    private $history;
+
 
 
     /**
@@ -470,30 +464,6 @@ class CompanySettings
     }
 
     /**
-     * Set googleplus.
-     *
-     * @param string $googleplus
-     *
-     * @return CompanySettings
-     */
-    public function setGoogleplus($googleplus)
-    {
-        $this->googleplus = $googleplus;
-
-        return $this;
-    }
-
-    /**
-     * Get googleplus.
-     *
-     * @return string
-     */
-    public function getGoogleplus()
-    {
-        return $this->googleplus;
-    }
-
-    /**
      * Set instagram.
      *
      * @param string $instagram
@@ -662,26 +632,26 @@ class CompanySettings
     }
 
     /**
-     * Set values.
+     * Set history.
      *
-     * @param string $values
+     * @param string $history
      *
      * @return CompanySettings
      */
-    public function setValues($values)
+    public function setHistory($history)
     {
-        $this->values = $values;
+        $this->history = $history;
 
         return $this;
     }
 
     /**
-     * Get values.
+     * Get history.
      *
      * @return string
      */
-    public function getValues()
+    public function getHistory()
     {
-        return $this->values;
+        return $this->history;
     }
 }

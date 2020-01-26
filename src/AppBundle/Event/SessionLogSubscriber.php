@@ -75,7 +75,7 @@ class SessionLogSubscriber implements EventSubscriberInterface
      */
     public function onKernelTerminate()
     {
-        /** @var TokenInterface $token */
+        /** @var TokenInterface|null $token */
         $token = $this->tokenStorage->getToken();
 
         if ($token instanceof TokenInterface) {

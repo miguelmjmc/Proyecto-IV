@@ -12,6 +12,7 @@ use Doctrine\ORM\UnitOfWork;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class OperationLogSubscriber implements EventSubscriber
 {
@@ -54,9 +55,18 @@ class OperationLogSubscriber implements EventSubscriber
      */
     public function onFlush(OnFlushEventArgs $args)
     {
+        /** @var Request $request */
         $request = $this->requestStack->getMasterRequest();
 
-        $user = $this->tokenStorage->getToken()->getUser();
+        /** @var TokenInterface|null $token */
+        $token = $this->tokenStorage->getToken();
+
+        $user = null;
+
+        if ($token instanceof TokenInterface) {
+            /** @var User $user */
+            $user = $token->getUser();
+        }
 
         if ($request instanceof Request && $user instanceof User) {
             $em = $args->getEntityManager();

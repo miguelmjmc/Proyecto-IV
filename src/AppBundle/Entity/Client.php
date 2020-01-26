@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Utils\LogTrait;
 use Doctrine\ORM\Mapping as ORM;
 use MJMC\Bundle\CrudBundle\Core\AbstractCrud;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -12,11 +13,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="client")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ClientRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity("identificationNumber")
  * @UniqueEntity("email")
  */
 class Client extends AbstractCrud
 {
+    use LogTrait;
+
     /**
      * @var int
      *
@@ -84,6 +88,42 @@ class Client extends AbstractCrud
      */
     private $phone;
 
+    /**
+     * @var bool
+     *
+     * @Assert\Length(min = 4, max = 2000)
+     *
+     * @ORM\Column(name="comment", type="text", nullable=true)
+     */
+    private $comment;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="disabled", type="boolean")
+     */
+    private $disabled = false;
+
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->name . ' ' . $this->lastName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        if ($this->getDisabled()) {
+            return '<span class="label label-danger" title="Desabilitado">Desabilitado</span>';
+        }
+
+        return '<span class="label label-success" title="Habilitado">Habilitado</span>';
+    }
 
     /**
      * Get id.
@@ -237,5 +277,53 @@ class Client extends AbstractCrud
     public function getPhone()
     {
         return $this->phone;
+    }
+
+    /**
+     * Set comment.
+     *
+     * @param string|null $comment
+     *
+     * @return Client
+     */
+    public function setComment($comment = null)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment.
+     *
+     * @return string|null
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Set disabled.
+     *
+     * @param bool|null $disabled
+     *
+     * @return Client
+     */
+    public function setDisabled($disabled = null)
+    {
+        $this->disabled = $disabled;
+
+        return $this;
+    }
+
+    /**
+     * Get disabled.
+     *
+     * @return bool|null
+     */
+    public function getDisabled()
+    {
+        return $this->disabled;
     }
 }

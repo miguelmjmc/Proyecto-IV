@@ -1,6 +1,6 @@
 {% extends '@App/adminlte/base_layout.html.twig' %}
 
-{% block head_title %}SUMAT{% endblock head_title %}
+{% block head_title %}E-System{% endblock head_title %}
 
 {% block styles %}
 
@@ -137,15 +137,17 @@
                      alt="User Image">
                 <p>
                     {{ app.user.fullName|default }}
-                    <small>Usuario desde el {{ app.user.createdAt|default ? app.user.createdAt|date('d/m/Y') }}</small>
+                    <small>Usuario desde el {{ app.user.createdAt|default ? app.user.createdAt|date('Y/m/d') }}</small>
                 </p>
             </li>
             <li class="user-footer">
                 <div class="pull-left">
-                    <a href="" class="btn btn-default btn-flat"><i class="fa fa-user-o"></i> Perfil</a>
+                    <a href="{{ path('user_profile') }}" class="btn btn-default btn-flat"><i class="fa fa-user-o"></i>
+                        Perfil</a>
                 </div>
                 <div class="pull-right">
-                    <a href="" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i> Salir</a>
+                    <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat"><i
+                                class="fa fa-sign-out"></i> Salir</a>
                 </div>
             </li>
         </ul>
@@ -171,48 +173,53 @@
 {% block aside_nav %}
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MENÚ</li>
-        <li><a href="{{ path('homepage') }}" data-role="navigation"><i class="fa fa-home"></i><span>Inicio</span></a></li>
-        <li><a href="{{ path('clients') }}" data-role="navigation"><i class="fa fa-users"></i><span>Clientes</span></a></li>
-        <li><a href="{{ path('products') }}" data-role="navigation"><i class="fa fa-cubes"></i><span>Productos</span></a></li>
-
-
-        <li><a href="{{ path('under_construction', { section: 'reports' }) }}" data-role="navigation"><i class="fa fa-area-chart"></i><span>Reportes</span></a></li>
-        <li><a href="{{ path('users') }}" data-role="navigation"><i class="fa fa-user-plus"></i><span>Usuarios</span></a></li>
-        <li class="treeview">
-            <a href="#"><i class="fa fa fa-history"></i> <span>Historiales</span><span class="pull-right-container"><i
-                            class="fa fa-angle-left pull-right"></i></span></a>
-            <ul class="treeview-menu">
-                <li><a href="{{ path('session_log') }}" data-role="navigation"><i class="fa fa-circle-o"></i>Sesiones</a></li>
-                <li><a href="{{ path('operation_log') }}" data-role="navigation"><i class="fa fa-circle-o"></i>Operaciones</a></li>
-            </ul>
+        <li><a href="{{ path('homepage') }}" data-role="navigation"><i class="fa fa-home"></i><span> Inicio</span></a>
         </li>
-        <li class="treeview">
-            <a href="#"><i class="fa fa fa-cogs"></i> <span>Configuraciones</span><span
-                        class="pull-right-container"><i
-                            class="fa fa-angle-left pull-right"></i></span></a>
-            <ul class="treeview-menu">
-                <li><a href="" data-role="navigation"><i class="fa fa-circle-o"></i><span>Configuraciónes</span></a>
-                </li>
-                <li><a href="" data-role="navigation"><i class="fa fa-circle-o"></i><span>Actividades Económicas</span></a>
-                </li>
-                <li><a href="" data-role="navigation"><i
-                                class="fa fa-circle-o"></i><span>Métodos de Pago</span></a></li>
-            </ul>
+        <li><a href="{{ path('client') }}" data-role="navigation"><i class="fa fa-users"></i><span> Clientes</span></a>
+        </li>
+        <li><a href="{{ path('product') }}" data-role="navigation"><i class="fa fa-cubes"></i><span> Productos</span></a>
         </li>
 
-        <li><a href="#" class="calculator-trigger"><i class="fa fa-calculator"></i> <span>Calculadora</span></a></li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li><a href="{{ path('under_construction', { section: 'website' }) }}" data-role="navigation"><i
+                            class="fa fa-desktop"></i><span> Sitio Web</span></a></li>
+            <li><a href="{{ path('under_construction', { section: 'report' }) }}" data-role="navigation"><i
+                            class="fa fa-area-chart"></i><span> Reportes</span></a></li>
+            <li><a href="{{ path('user') }}" data-role="navigation"><i class="fa fa-user-plus"></i><span> Usuarios</span></a>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa fa-history"></i> <span> Historiales</span><span class="pull-right-container"><i
+                                class="fa fa-angle-left pull-right"></i></span></a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ path('session_log') }}" data-role="navigation"><i class="fa fa-circle-o"></i> Sesiones</a>
+                    </li>
+                    <li><a href="{{ path('operation_log') }}" data-role="navigation"><i class="fa fa-circle-o"></i> Operaciones</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa fa-cogs"></i> <span> Configuraciones</span><span
+                            class="pull-right-container"><i
+                                class="fa fa-angle-left pull-right"></i></span></a>
+                <ul class="treeview-menu">
+                    <li><a href="" data-role="navigation"><i class="fa fa-circle-o"></i><span> Métodos de Pago</span></a></li>
+                </ul>
+            </li>
+        {% endif %}
+
+        <li><a href="#" class="calculator-trigger"><i class="fa fa-calculator"></i> <span> Calculadora</span></a></li>
         <li class="treeview">
-            <a href="#"><i class="fa fa fa-info-circle"></i> <span>Ayuda</span><span class="pull-right-container"><i
+            <a href="#"><i class="fa fa fa-info-circle"></i> <span> Ayuda</span><span class="pull-right-container"><i
                             class="fa fa-angle-left pull-right"></i></span></a>
             <ul class="treeview-menu">
                 <li><a href="{{ path('under_construction', { section: 'faq' }) }}" data-role="navigation"><i
-                                class="fa fa-circle-o"></i>Pregustas Frecuentes</a></li>
+                                class="fa fa-circle-o"></i> Pregustas Frecuentes</a></li>
                 <li><a href="{{ path('under_construction', { section: 'manual' }) }}" data-role="navigation"><i
-                                class="fa fa-circle-o"></i>Manual de Usuario</a></li>
+                                class="fa fa-circle-o"></i> Manual de Usuario</a></li>
                 <li><a href="{{ path('under_construction', { section: 'about' }) }}" data-role="navigation"><i
-                                class="fa fa-circle-o"></i>Acerca de</a></li>
+                                class="fa fa-circle-o"></i> Acerca de</a></li>
                 <li><a href="{{ path('under_construction', { section: 'support' }) }}" data-role="navigation"><i
-                                class="fa fa-circle-o"></i>Soporte</a></li>
+                                class="fa fa-circle-o"></i> Soporte</a></li>
             </ul>
         </li>
     </ul>
@@ -222,7 +229,7 @@
     <div class="pull-right hidden-xs">
         Versión: 1.0.0
     </div>
-    <strong>Copyright &copy; 2020. Representaciones Jemaro.C.A</strong>.
+    Copyright &copy; 2020 <strong>E-System</strong>. Todos los derechos reservados.
 {% endblock footer_container %}
 
 {% block hidden %}

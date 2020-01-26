@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,7 +36,36 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/sessionLog", name="session_log")
+     * @Route("/admin/user/", name="user")
+     */
+    public function userAction()
+    {
+        return $this->render('system/user.html.twig');
+    }
+
+    /**
+     * @return Response
+     *
+     * @Route("/user/profile", name="user_profile")
+     */
+    public function userProfileAction()
+    {
+        $user = $this->getUser();
+
+        $parameters = array(
+            'method' => 'GET',
+            'attr' => array('readonly' => true),
+        );
+
+        $form = $this->createForm(UserType::class, $user, $parameters);
+
+        return $this->render('system/user_profile.html.twig', array('form' => $form->createView()));
+    }
+
+    /**
+     * @return Response
+     *
+     * @Route("/admin/sessionLog", name="session_log")
      */
     public function sessionLogAction()
     {
@@ -45,7 +75,7 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/operationLog", name="operation_log")
+     * @Route("/admin/operationLog", name="operation_log")
      */
     public function operationLogAction()
     {
@@ -55,30 +85,20 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/clients", name="clients")
+     * @Route("/client", name="client")
      */
     public function clientsAction()
     {
-        return $this->render('system/clients.html.twig');
+        return $this->render('system/client.html.twig');
     }
 
     /**
      * @return Response
      *
-     * @Route("/products", name="products")
+     * @Route("/product", name="product")
      */
     public function productsAction()
     {
-        return $this->render('system/products.html.twig');
-    }
-
-    /**
-     * @return Response
-     *
-     * @Route("/users", name="users")
-     */
-    public function usersAction()
-    {
-        return $this->render('system/users.html.twig');
+        return $this->render('system/product.html.twig');
     }
 }
