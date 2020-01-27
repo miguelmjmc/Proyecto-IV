@@ -19,8 +19,8 @@ class ProductType extends AbstractType
             ->add('productBrand', null, array('choice_label' => 'name', 'placeholder' => 'Select', 'attr' => array('class' => 'selectpicker')))
             ->add('productCategory', null, array('choice_label' => 'name', 'placeholder' => 'Select', 'attr' => array('class' => 'selectpicker')))
             ->add('vehicle', null, array('choice_label' => 'fullName', 'placeholder' => 'Select', 'attr' => array('class' => 'selectpicker')))
-            ->add('price', null, array('attr' => array('class' => 'money')))
-            ->add('stock')
+            ->add('price', null, array('grouping' => true, 'scale' => 2, 'attr' => array('class' => 'money')))
+            ->add('stock', null, array('grouping' => true))
             ->add('comment')
         ;
     }
