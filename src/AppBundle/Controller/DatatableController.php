@@ -4,10 +4,14 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Client;
 use AppBundle\Entity\OperationLog;
+use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductBrand;
 use AppBundle\Entity\ProductCategory;
 use AppBundle\Entity\SessionLog;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Vehicle;
+use AppBundle\Entity\VehicleBrand;
+use AppBundle\Entity\VehicleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -208,11 +212,11 @@ class DatatableController extends Controller
      */
     public function productListAction()
     {
-        $collection = $this->getDoctrine()->getRepository(ProductCategory::class)->findAll();
+        $collection = $this->getDoctrine()->getRepository(Product::class)->findAll();
 
         $data = array('data' => array());
 
-        /** @var  $item */
+        /** @var Product $item */
         foreach ($collection as $item) {
 
             $parameters = array(
@@ -224,9 +228,109 @@ class DatatableController extends Controller
             $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
 
             $data['data'][] = array(
+                $item->getLastUpdate() instanceof \DateTime ? $item->getLastUpdate()->format('Y/m/d H:i:s') : '',
+                $item->getCode(),
+                $item->getDescription(),
+                $item->getProductBrand()->getName(),
+                $item->getPrice(),
+                $item->getStock(),
+                $btn,
+            );
+        }
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @return JsonResponse
+     *
+     * @Route("/list/vehicleBrand", name="vehicleBrand_list")
+     */
+    public function vehicleBrandListAction()
+    {
+        $collection = $this->getDoctrine()->getRepository(VehicleBrand::class)->findAll();
+
+        $data = array('data' => array());
+
+        /** @var VehicleBrand $item */
+        foreach ($collection as $item) {
+
+            $parameters = array(
+                'suffix' => 'Marca',
+                'actions' => array('show', 'edit', 'delete'),
+                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'VehicleBrand', 'id' => $item->getId())),
+            );
+
+            $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
+
+            $data['data'][] = array(
                 $item->getName(),
+                $btn,
+            );
+        }
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @return JsonResponse
+     *
+     * @Route("/list/vehicleType", name="vehicleType_list")
+     */
+    public function vehicleTypeListAction()
+    {
+        $collection = $this->getDoctrine()->getRepository(VehicleType::class)->findAll();
+
+        $data = array('data' => array());
+
+        /** @var VehicleType $item */
+        foreach ($collection as $item) {
+
+            $parameters = array(
+                'suffix' => 'Tipo',
+                'actions' => array('show', 'edit', 'delete'),
+                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'VehicleType', 'id' => $item->getId())),
+            );
+
+            $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
+
+            $data['data'][] = array(
                 $item->getName(),
+                $btn,
+            );
+        }
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @return JsonResponse
+     *
+     * @Route("/list/vehicle", name="vehicle_list")
+     */
+    public function vehicleListAction()
+    {
+        $collection = $this->getDoctrine()->getRepository(Vehicle::class)->findAll();
+
+        $data = array('data' => array());
+
+        /** @var Vehicle $item */
+        foreach ($collection as $item) {
+
+            $parameters = array(
+                'suffix' => 'Vehículo',
+                'actions' => array('show', 'edit', 'delete'),
+                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'Vehicle', 'id' => $item->getId())),
+            );
+
+            $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
+
+            $data['data'][] = array(
+                $item->getLastUpdate() instanceof \DateTime ? $item->getLastUpdate()->format('Y/m/d H:i:s') : '',
                 $item->getName(),
+                $item->getVehicleBrand()->getName(),
+                $item->getVehicleType()->getName(),
+                $item->getYears(),
                 $btn,
             );
         }

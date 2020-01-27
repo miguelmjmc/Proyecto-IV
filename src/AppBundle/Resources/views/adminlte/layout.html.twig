@@ -179,6 +179,8 @@
         </li>
         <li><a href="{{ path('product') }}" data-role="navigation"><i class="fa fa-cubes"></i><span> Productos</span></a>
         </li>
+        <li><a href="{{ path('vehicle') }}" data-role="navigation"><i class="fa fa-car"></i><span> Vehículos</span></a>
+        </li>
 
         {% if is_granted('ROLE_ADMIN') %}
             <li><a href="{{ path('under_construction', { section: 'website' }) }}" data-role="navigation"><i

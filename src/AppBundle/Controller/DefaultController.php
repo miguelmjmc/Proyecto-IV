@@ -89,7 +89,7 @@ class DefaultController extends Controller
      *
      * @Route("/client", name="client")
      */
-    public function clientsAction()
+    public function clientAction()
     {
         return $this->render('system/client.html.twig');
     }
@@ -99,9 +99,19 @@ class DefaultController extends Controller
      *
      * @Route("/product", name="product")
      */
-    public function productsAction()
+    public function productAction()
     {
         return $this->render('system/product.html.twig');
+    }
+
+    /**
+     * @return Response
+     *
+     * @Route("/vehicle", name="vehicle")
+     */
+    public function vehicleAction()
+    {
+        return $this->render('system/vehicle.html.twig');
     }
 
     /**

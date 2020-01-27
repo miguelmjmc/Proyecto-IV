@@ -1,6 +1,9 @@
 ProductBrand: Marca
 ProductCategory: Categoría
 Product: Producto
+VehicleBrand: Marca
+VehicleType: Tipo
+Vehicle: Vehículo
 User: Usuario
 Client: Cliente
 CompanySettings: 'Información de la Empresa'

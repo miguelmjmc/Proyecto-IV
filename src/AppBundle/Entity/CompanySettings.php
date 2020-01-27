@@ -117,7 +117,7 @@ class CompanySettings
     /**
      * @var string
      *
-     * @ORM\Column(name="img", type="string", length=255)
+     * @ORM\Column(name="img", type="string", length=255, nullable=true)
      */
     private $img;
 

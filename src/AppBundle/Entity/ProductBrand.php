@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use MJMC\Bundle\CrudBundle\Core\AbstractCrud;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -43,6 +44,21 @@ class ProductBrand extends AbstractCrud
      */
     private $img;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="productBrand")
+     */
+    private $product;
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->product = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * @ORM\PreRemove
@@ -110,5 +126,41 @@ class ProductBrand extends AbstractCrud
     public function getImg()
     {
         return $this->img;
+    }
+
+    /**
+     * Add product.
+     *
+     * @param \AppBundle\Entity\Product $product
+     *
+     * @return ProductBrand
+     */
+    public function addProduct(\AppBundle\Entity\Product $product)
+    {
+        $this->product[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product.
+     *
+     * @param \AppBundle\Entity\Product $product
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeProduct(\AppBundle\Entity\Product $product)
+    {
+        return $this->product->removeElement($product);
+    }
+
+    /**
+     * Get product.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProduct()
+    {
+        return $this->product;
     }
 }

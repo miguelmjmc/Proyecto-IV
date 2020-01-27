@@ -8,14 +8,16 @@ use MJMC\Bundle\CrudBundle\Core\AbstractCrud;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
- * ProductCategory
+ * VehicleBrand
  *
- * @ORM\Table(name="product_category")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductCategoryRepository")
+ * @ORM\Table(name="vehicle_brand")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\VehicleBrandRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity("name")
  */
-class ProductCategory extends AbstractCrud
+class VehicleBrand extends AbstractCrud
 {
     /**
      * @var int
@@ -37,11 +39,18 @@ class ProductCategory extends AbstractCrud
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="img", type="string", length=255, nullable=true)
+     */
+    private $img;
+
+    /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Product", mappedBy="productCategory")
+     * @ORM\OneToMany(targetEntity="Vehicle", mappedBy="vehicleBrand")
      */
-    private $product;
+    private $vehicle;
 
 
     /**
@@ -49,7 +58,17 @@ class ProductCategory extends AbstractCrud
      */
     public function __construct()
     {
-        $this->product = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->vehicle = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @ORM\PreRemove
+     */
+    public function onPreRemove()
+    {
+        if (file_exists($this->img)) {
+            unlink($this->img);
+        }
     }
 
     /**
@@ -67,7 +86,7 @@ class ProductCategory extends AbstractCrud
      *
      * @param string $name
      *
-     * @return ProductCategory
+     * @return VehicleBrand
      */
     public function setName($name)
     {
@@ -87,38 +106,62 @@ class ProductCategory extends AbstractCrud
     }
 
     /**
-     * Add product.
+     * Set img.
      *
-     * @param \AppBundle\Entity\Product $product
+     * @param string $img
      *
-     * @return ProductCategory
+     * @return VehicleBrand
      */
-    public function addProduct(\AppBundle\Entity\Product $product)
+    public function setImg($img)
     {
-        $this->product[] = $product;
+        $this->img = $img;
 
         return $this;
     }
 
     /**
-     * Remove product.
+     * Get img.
      *
-     * @param \AppBundle\Entity\Product $product
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return string
      */
-    public function removeProduct(\AppBundle\Entity\Product $product)
+    public function getImg()
     {
-        return $this->product->removeElement($product);
+        return $this->img;
     }
 
     /**
-     * Get product.
+     * Add vehicle.
+     *
+     * @param \AppBundle\Entity\Vehicle $vehicle
+     *
+     * @return VehicleBrand
+     */
+    public function addVehicle(\AppBundle\Entity\Vehicle $vehicle)
+    {
+        $this->vehicle[] = $vehicle;
+
+        return $this;
+    }
+
+    /**
+     * Remove vehicle.
+     *
+     * @param \AppBundle\Entity\Vehicle $vehicle
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeVehicle(\AppBundle\Entity\Vehicle $vehicle)
+    {
+        return $this->vehicle->removeElement($vehicle);
+    }
+
+    /**
+     * Get vehicle.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getProduct()
+    public function getVehicle()
     {
-        return $this->product;
+        return $this->vehicle;
     }
 }

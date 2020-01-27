@@ -8,14 +8,15 @@ use MJMC\Bundle\CrudBundle\Core\AbstractCrud;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
- * ProductCategory
+ * VehicleType
  *
- * @ORM\Table(name="product_category")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductCategoryRepository")
+ * @ORM\Table(name="vehicle_type")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\VehicleTypeRepository")
  * @UniqueEntity("name")
  */
-class ProductCategory extends AbstractCrud
+class VehicleType extends AbstractCrud
 {
     /**
      * @var int
@@ -39,9 +40,9 @@ class ProductCategory extends AbstractCrud
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Product", mappedBy="productCategory")
+     * @ORM\OneToMany(targetEntity="Vehicle", mappedBy="vehicleType")
      */
-    private $product;
+    private $vehicle;
 
 
     /**
@@ -49,7 +50,7 @@ class ProductCategory extends AbstractCrud
      */
     public function __construct()
     {
-        $this->product = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->vehicle = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -67,7 +68,7 @@ class ProductCategory extends AbstractCrud
      *
      * @param string $name
      *
-     * @return ProductCategory
+     * @return VehicleType
      */
     public function setName($name)
     {
@@ -87,38 +88,38 @@ class ProductCategory extends AbstractCrud
     }
 
     /**
-     * Add product.
+     * Add vehicle.
      *
-     * @param \AppBundle\Entity\Product $product
+     * @param \AppBundle\Entity\Vehicle $vehicle
      *
-     * @return ProductCategory
+     * @return VehicleType
      */
-    public function addProduct(\AppBundle\Entity\Product $product)
+    public function addVehicle(\AppBundle\Entity\Vehicle $vehicle)
     {
-        $this->product[] = $product;
+        $this->vehicle[] = $vehicle;
 
         return $this;
     }
 
     /**
-     * Remove product.
+     * Remove vehicle.
      *
-     * @param \AppBundle\Entity\Product $product
+     * @param \AppBundle\Entity\Vehicle $vehicle
      *
      * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeProduct(\AppBundle\Entity\Product $product)
+    public function removeVehicle(\AppBundle\Entity\Vehicle $vehicle)
     {
-        return $this->product->removeElement($product);
+        return $this->vehicle->removeElement($vehicle);
     }
 
     /**
-     * Get product.
+     * Get vehicle.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getProduct()
+    public function getVehicle()
     {
-        return $this->product;
+        return $this->vehicle;
     }
 }
