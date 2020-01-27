@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "542c05c7cd4c98a79f816c010697753d",
+    "content-hash": "694702ea2591e9c985494341e4e31ae6",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1362,16 +1362,16 @@
         },
         {
             "name": "mjmc/crud-bundle",
-            "version": "0.0.9",
+            "version": "0.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/miguelmjmc/MJMCCrudBundle.git",
-                "reference": "74a3c76fde53a61953d445c7f5c06d0445555ac8"
+                "reference": "08bc2ea54768ca549dc18304bc40b230d971e247"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/miguelmjmc/MJMCCrudBundle/zipball/74a3c76fde53a61953d445c7f5c06d0445555ac8",
-                "reference": "74a3c76fde53a61953d445c7f5c06d0445555ac8",
+                "url": "https://api.github.com/repos/miguelmjmc/MJMCCrudBundle/zipball/08bc2ea54768ca549dc18304bc40b230d971e247",
+                "reference": "08bc2ea54768ca549dc18304bc40b230d971e247",
                 "shasum": ""
             },
             "type": "symfony-bundle",
@@ -1393,7 +1393,7 @@
                     "email": "miguel.mjmc@gmail.com"
                 }
             ],
-            "time": "2020-01-25T21:18:38+00:00"
+            "time": "2020-01-27T05:43:48+00:00"
         },
         {
             "name": "monolog/monolog",

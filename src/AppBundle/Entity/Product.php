@@ -91,8 +91,6 @@ class Product extends AbstractCrud
     /**
      * @var ProductCategory
      *
-     * @Assert\Count(min = 1)
-     *
      * @ORM\ManyToMany(targetEntity="ProductCategory", inversedBy="product")
      */
     private $productCategory;
