@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="product_brand")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductBrandRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity("name")
  */
 class ProductBrand extends AbstractCrud
@@ -42,6 +43,16 @@ class ProductBrand extends AbstractCrud
      */
     private $img;
 
+
+    /**
+     * @ORM\PreRemove
+     */
+    public function onPreRemove()
+    {
+        if (file_exists($this->img)) {
+            unlink($this->img);
+        }
+    }
 
     /**
      * Get id.

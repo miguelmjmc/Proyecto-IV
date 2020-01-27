@@ -26,12 +26,18 @@ class CompanySettings
     /**
      * @var string
      *
+     * @Assert\NotBlank
+     * @Assert\Length(min = 12, max = 12)
+     *
      * @ORM\Column(name="identificationNumber", type="string", length=255)
      */
     private $identificationNumber;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank
+     * @Assert\Length(min = 4, max = 50)
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
@@ -40,12 +46,18 @@ class CompanySettings
     /**
      * @var string
      *
+     * @Assert\NotBlank
+     * @Assert\Length(min = 4, max = 50)
+     *
      * @ORM\Column(name="slogan", type="string", length=255)
      */
     private $slogan;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank
+     * @Assert\Length(min = 10, max = 200)
      *
      * @ORM\Column(name="address", type="string", length=255)
      */
@@ -54,12 +66,18 @@ class CompanySettings
     /**
      * @var string
      *
+     * @Assert\NotBlank
+     * @Assert\Range(min = "-90", max = "90")
+     *
      * @ORM\Column(name="latitude", type="decimal", precision=8, scale=6)
      */
     private $latitude;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank
+     * @Assert\Range(min = "-180", max = "180")
      *
      * @ORM\Column(name="longitude", type="decimal", precision=9, scale=6)
      */
@@ -68,6 +86,10 @@ class CompanySettings
     /**
      * @var string
      *
+     * @Assert\NotBlank
+     * @Assert\Length(min = 10, max = 50)
+     * @Assert\Email()
+     *
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
@@ -75,12 +97,18 @@ class CompanySettings
     /**
      * @var string
      *
+     * @Assert\NotBlank
+     * @Assert\Length(min = 10, max = 20)
+     *
      * @ORM\Column(name="phone1", type="string", length=255)
      */
     private $phone1;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank
+     * @Assert\Length(min = 10, max = 20)
      *
      * @ORM\Column(name="phone2", type="string", length=255)
      */
@@ -96,54 +124,65 @@ class CompanySettings
     /**
      * @var string
      *
-     * @ORM\Column(name="facebook", type="string", length=255)
+     * @Assert\Url
+     *
+     * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
      */
     private $facebook;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="twitter", type="string", length=255)
+     * @Assert\Url
+     *
+     * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
      */
     private $twitter;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="instagram", type="string", length=255)
+     * @Assert\Url
+     *
+     * @ORM\Column(name="instagram", type="string", length=255, nullable=true)
      */
     private $instagram;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="youtube", type="string", length=255)
+     * @Assert\Url
+     *
+     * @ORM\Column(name="youtube", type="string", length=255, nullable=true)
      */
     private $youtube;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="whatsapp", type="string", length=255)
+     * @ORM\Column(name="whatsapp", type="string", length=255, nullable=true)
      */
     private $whatsapp;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telegram", type="string", length=255)
+     * @ORM\Column(name="telegram", type="string", length=255, nullable=true)
      */
     private $telegram;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="skype", type="string", length=255)
+     * @ORM\Column(name="skype", type="string", length=255, nullable=true)
      */
     private $skype;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank
+     * @Assert\Length(min = 10, max = 400)
      *
      * @ORM\Column(name="mission", type="text")
      */
@@ -152,12 +191,18 @@ class CompanySettings
     /**
      * @var string
      *
+     * @Assert\NotBlank
+     * @Assert\Length(min = 10, max = 400)
+     *
      * @ORM\Column(name="vision", type="text")
      */
     private $vision;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank
+     * @Assert\Length(min = 10, max = 1200)
      *
      * @ORM\Column(name="history", type="text")
      */

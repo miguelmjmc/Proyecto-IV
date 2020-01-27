@@ -9,6 +9,9 @@ New password: 'Nueva Contraseña'
 Repeat password: 'Repita la contraseña'
 Email: 'Correo electronico'
 Phone: Teléfono
+Phone1: 'Teléfono Principal'
+Phone2: 'Teléfono Alternativo'
+Slogan: Eslogan
 Select: Seleccione...
 Status: Estado
 Enabled: Habilitado
@@ -21,3 +24,13 @@ Latitude: Latitud
 Longitude: Longitud
 Date: Fecha
 Comment: Observaciones
+Mission: Misión
+Vision: Visión
+History: Historia
+Facebook: Facebook
+Twitter: Twitter
+Instagram: Instagram
+Youtube: Youtube
+Whatsapp: Whatsapp
+Telegram: Telegram
+Skype: Skype

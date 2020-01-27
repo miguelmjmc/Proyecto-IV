@@ -8,6 +8,7 @@ use AppBundle\Form\Events\UserSubscriber;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -66,7 +67,7 @@ class UserType extends AbstractType
                 )
                 ->add(
                     'email',
-                    null,
+                    EmailType::class,
                     array(
                         'constraints' => array(
                             new NotBlank(),
@@ -132,7 +133,7 @@ class UserType extends AbstractType
                 )
                 ->add(
                     'email',
-                    null,
+                    EmailType::class,
                     array(
                         'constraints' => array(
                             new NotBlank(),
@@ -208,7 +209,7 @@ class UserType extends AbstractType
                 ->add('name', null, array('disabled' => true))
                 ->add('lastName', null, array('disabled' => true))
                 ->add('username', null, array('disabled' => true))
-                ->add('email', null, array('disabled' => true))
+                ->add('email', EmailType::class, array('disabled' => true))
                 ->add(
                     'enabled',
                     ChoiceType::class,

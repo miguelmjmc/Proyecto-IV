@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Form\Events\UploadFileSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,8 +14,12 @@ class ProductBrandType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('img');
-    }/**
+        $builder->add('name');
+
+        $builder->addEventSubscriber(new UploadFileSubscriber());
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -31,6 +36,4 @@ class ProductBrandType extends AbstractType
     {
         return 'appbundle_productbrand';
     }
-
-
 }

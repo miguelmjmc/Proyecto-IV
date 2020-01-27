@@ -2,10 +2,6 @@
 
 namespace AppBundle\Form\Events;
 
-use AppBundle\Entity\Settings;
-use AppBundle\Entity\Taxpayer;
-use AppBundle\Entity\User;
-use AppBundle\Entity\WebsiteSettings;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormEvent;
@@ -47,13 +43,13 @@ class UploadFileSubscriber implements EventSubscriberInterface
         $data = $event->getData();
         $form = $event->getForm();
 
-        if ($data instanceof Settings || $data instanceof User) {
-            if ($form->isValid()) {
+        if ($form->isValid()) {
+            if ('POST' === $form->getConfig()->getMethod() || 'PUT' === $form->getConfig()->getMethod()) {
                 if ($form['file']->getData() instanceof UploadedFile) {
                     /** @var UploadedFile $file */
                     $file = $form['file']->getData();
 
-                    $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                    $fileName = md5(uniqid()) . '.' . $file->guessExtension();
 
                     $file->move('img', $fileName);
 
@@ -61,7 +57,7 @@ class UploadFileSubscriber implements EventSubscriberInterface
                         unlink($data->getImg());
                     }
 
-                    $data->setImg('img/'.$fileName);
+                    $data->setImg('img/' . $fileName);
                 }
             }
         }

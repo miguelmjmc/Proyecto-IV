@@ -75,21 +75,58 @@ $(document).ready(function () {
 
 
     $(document).on('navigation.success', function (event) {
+        $('.box').boxWidget({
+            animationSpeed : 500,
+            collapseTrigger: '[data-widget="collapse"]',
+            removeTrigger  : '[data-widget="remove"]',
+            collapseIcon   : 'fa-minus',
+            expandIcon     : 'fa-plus',
+            removeIcon     : 'fa-times'
+        });
+
         $('.datatable').each(function (index) {
             table[index] = $(this).DataTable({
-                info: false,
-                lengthChange: false,
-                paging: false,
-                searching: false,
                 ajax: $(this).data('src'),
                 language: lang,
                 responsive: true,
-                dom: "<'row'<'col-sm-8 float-right-content'><'col-sm-4'<'btn-add-container'>><'col-sm-12 date-filter-container'><'col-sm-6'l><'col-sm-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-5'i><'col-sm-7'p>>",
+                dom: "<'row'<'col-sm-8 float-right-content'B><'col-sm-4'<'btn-add-container'>><'col-sm-12 date-filter-container'><'col-sm-6'l><'col-sm-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-5'i><'col-sm-7'p>>",
                 select: {
                     style: 'os',
                     selector: 'td:not(:last-child)',
                     blurable: true
-                }
+                },
+                buttons: [
+                    {
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':not(:last-child)'
+                        }
+                    }
+                ]
             });
         });
 
@@ -261,19 +298,47 @@ $(document).ready(function () {
 
     $('.datatable').each(function (index) {
         table[index] = $(this).DataTable({
-            info: false,
-            lengthChange: false,
-            paging: false,
-            searching: false,
             ajax: $(this).data('src'),
             language: lang,
             responsive: true,
-            dom: "<'row'<'col-sm-8 float-right-content'><'col-sm-4'<'btn-add-container'>><'col-sm-12 date-filter-container'><'col-sm-6'l><'col-sm-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-5'i><'col-sm-7'p>>",
+            dom: "<'row'<'col-sm-8 float-right-content'B><'col-sm-4'<'btn-add-container'>><'col-sm-12 date-filter-container'><'col-sm-6'l><'col-sm-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-5'i><'col-sm-7'p>>",
             select: {
                 style: 'os',
                 selector: 'td:not(:last-child)',
                 blurable: true
-            }
+            },
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':not(:last-child)'
+                    }
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':not(:last-child)'
+                    }
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':not(:last-child)'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':not(:last-child)'
+                    }
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':not(:last-child)'
+                    }
+                }
+            ]
         });
     });
 
