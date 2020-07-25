@@ -14,7 +14,17 @@ class ProductBrandType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
+        $builder->add(
+            'name',
+            null,
+            array(
+                'label' => 'productBrand_name_label',
+                'attr' => array(
+                    'placeholder' => 'productBrand_name_placeholder',
+                    'title' => 'productBrand_name_title',
+                ),
+            )
+        );
 
         $builder->addEventSubscriber(new UploadFileSubscriber());
     }
@@ -24,9 +34,11 @@ class ProductBrandType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\ProductBrand'
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'AppBundle\Entity\ProductBrand',
+            )
+        );
     }
 
     /**

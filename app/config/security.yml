@@ -26,4 +26,5 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/system/admin/, role: ROLE_SUPER_ADMIN }
-        - { path: ^/system/, role: ROLE_ADMIN }
+        - { path: ^/system/admin/, role: ROLE_ADMIN }
+        - { path: ^/system/, role: ROLE_USER }

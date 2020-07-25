@@ -11,7 +11,7 @@ use AppBundle\Entity\SessionLog;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Entity\VehicleBrand;
-use AppBundle\Entity\VehicleType;
+use AppBundle\Entity\VehicleCategory;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -189,7 +189,7 @@ class DatatableController extends Controller
         foreach ($collection as $item) {
 
             $parameters = array(
-                'suffix' => 'Categoria',
+                'suffix' => 'Categoría',
                 'actions' => array('show', 'edit', 'delete'),
                 'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'ProductCategory', 'id' => $item->getId())),
             );
@@ -244,21 +244,21 @@ class DatatableController extends Controller
     /**
      * @return JsonResponse
      *
-     * @Route("/list/vehicleBrand", name="vehicleBrand_list")
+     * @Route("/list/vehicleCategory", name="vehicleCategory_list")
      */
-    public function vehicleBrandListAction()
+    public function vehicleCategoryListAction()
     {
-        $collection = $this->getDoctrine()->getRepository(VehicleBrand::class)->findAll();
+        $collection = $this->getDoctrine()->getRepository(VehicleCategory::class)->findAll();
 
         $data = array('data' => array());
 
-        /** @var VehicleBrand $item */
+        /** @var VehicleCategory $item */
         foreach ($collection as $item) {
 
             $parameters = array(
-                'suffix' => 'Marca',
+                'suffix' => 'Categoría',
                 'actions' => array('show', 'edit', 'delete'),
-                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'VehicleBrand', 'id' => $item->getId())),
+                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'VehicleCategory', 'id' => $item->getId())),
             );
 
             $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
@@ -275,21 +275,21 @@ class DatatableController extends Controller
     /**
      * @return JsonResponse
      *
-     * @Route("/list/vehicleType", name="vehicleType_list")
+     * @Route("/list/vehicleBrand", name="vehicleBrand_list")
      */
-    public function vehicleTypeListAction()
+    public function vehicleBrandListAction()
     {
-        $collection = $this->getDoctrine()->getRepository(VehicleType::class)->findAll();
+        $collection = $this->getDoctrine()->getRepository(VehicleBrand::class)->findAll();
 
         $data = array('data' => array());
 
-        /** @var VehicleType $item */
+        /** @var VehicleBrand $item */
         foreach ($collection as $item) {
 
             $parameters = array(
-                'suffix' => 'Tipo',
+                'suffix' => 'Marca',
                 'actions' => array('show', 'edit', 'delete'),
-                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'VehicleType', 'id' => $item->getId())),
+                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'VehicleBrand', 'id' => $item->getId())),
             );
 
             $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
@@ -329,8 +329,8 @@ class DatatableController extends Controller
                 $item->getLastUpdate() instanceof \DateTime ? $item->getLastUpdate()->format('Y/m/d H:i:s') : '',
                 $item->getName(),
                 $item->getVehicleBrand()->getName(),
-                $item->getVehicleType()->getName(),
-                $item->getYears(),
+                $item->getSeries(),
+                $item->getVehicleCategory()->getName(),
                 $btn,
             );
         }

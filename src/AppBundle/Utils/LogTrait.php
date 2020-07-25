@@ -25,11 +25,7 @@ trait LogTrait
      */
     public function getLastUpdate()
     {
-        if ($this->updatedAt) {
-            return $this->updatedAt;
-        }
-
-        return $this->createdAt;
+        return $this->updatedAt;
     }
 
     /**
@@ -85,7 +81,10 @@ trait LogTrait
      */
     public function onPrePersist(LifecycleEventArgs $event)
     {
-        $this->createdAt = new \DateTime();
+        $date = new \DateTime();
+
+        $this->createdAt = $date;
+        $this->updatedAt = $date;
     }
 
     /**

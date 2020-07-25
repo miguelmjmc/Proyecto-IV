@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\CompanySettings;
+use AppBundle\Entity\Product;
+use AppBundle\Entity\User;
 use AppBundle\Form\CompanySettingsType;
 use AppBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,7 +24,23 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('system/index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $recentlyUpdatedProducts = $em->getRepository(Product::class)->findBy(array(), array('updatedAt' => 'desc'), 5);
+        $mostVisitedProducts = $em->getRepository(Product::class)->findBy(array(), array('viewCounter' => 'desc'), 5);
+        $mostReservedProducts = $em->getRepository(Product::class)->findBy(array(), array('updatedAt' => 'desc'), 5);
+
+        $users = $em->getRepository(User::class)->findBy(array(), array('lastLogin' => 'desc'), 12);
+
+        return $this->render(
+            'system/index.html.twig',
+            array(
+                'recentlyUpdatedProducts' => $recentlyUpdatedProducts,
+                'mostVisitedProducts' => $mostVisitedProducts,
+                'mostReservedProducts' => $mostReservedProducts,
+                'users' => $users,
+            )
+        );
     }
 
     /**
@@ -38,7 +56,17 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/admin/user/", name="user")
+     * @Route("/help/", name="help")
+     */
+    public function helpAction()
+    {
+        return $this->render('system/help.html.twig');
+    }
+
+    /**
+     * @return Response
+     *
+     * @Route("/admin/users", name="users")
      */
     public function userAction()
     {
@@ -46,13 +74,17 @@ class DefaultController extends Controller
     }
 
     /**
+     * @param User $user
+     *
      * @return Response
      *
-     * @Route("/user/profile", name="user_profile")
+     * @Route("/user/profile/{id}", defaults={"id"=null}, name="user_profile")
      */
-    public function userProfileAction()
+    public function userProfileAction(User $user = null)
     {
-        $user = $this->getUser();
+        if (!$user) {
+            $user = $this->getUser();
+        }
 
         $parameters = array(
             'method' => 'GET',
@@ -67,7 +99,7 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/admin/sessionLog", name="session_log")
+     * @Route("/admin/sessionLogs", name="session_logs")
      */
     public function sessionLogAction()
     {
@@ -77,7 +109,7 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/admin/operationLog", name="operation_log")
+     * @Route("/admin/operationLogs", name="operation_logs")
      */
     public function operationLogAction()
     {
@@ -87,7 +119,7 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/client", name="client")
+     * @Route("/clients", name="clients")
      */
     public function clientAction()
     {
@@ -97,7 +129,7 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/product", name="product")
+     * @Route("/products", name="products")
      */
     public function productAction()
     {
@@ -107,7 +139,7 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/vehicle", name="vehicle")
+     * @Route("/vehicles", name="vehicles")
      */
     public function vehicleAction()
     {

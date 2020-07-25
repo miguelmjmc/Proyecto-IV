@@ -10,13 +10,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * VehicleType
+ * VehicleCategory
  *
- * @ORM\Table(name="vehicle_type")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\VehicleTypeRepository")
+ * @ORM\Table(name="vehicle_category")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\VehicleCategoryRepository")
  * @UniqueEntity("name")
  */
-class VehicleType extends AbstractCrud
+class VehicleCategory extends AbstractCrud
 {
     /**
      * @var int
@@ -40,7 +40,7 @@ class VehicleType extends AbstractCrud
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Vehicle", mappedBy="vehicleType")
+     * @ORM\OneToMany(targetEntity="Vehicle", mappedBy="vehicleCategory")
      */
     private $vehicle;
 
@@ -68,7 +68,7 @@ class VehicleType extends AbstractCrud
      *
      * @param string $name
      *
-     * @return VehicleType
+     * @return VehicleCategory
      */
     public function setName($name)
     {
@@ -92,7 +92,7 @@ class VehicleType extends AbstractCrud
      *
      * @param \AppBundle\Entity\Vehicle $vehicle
      *
-     * @return VehicleType
+     * @return VehicleCategory
      */
     public function addVehicle(\AppBundle\Entity\Vehicle $vehicle)
     {

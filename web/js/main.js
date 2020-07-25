@@ -214,12 +214,12 @@
 
     /*==================================================================
     [ +/- num product ]*/
-    $('.btn-num-product-down').on('click', function(){
+    $(document).on('click', '.btn-num-product-down', function(){
         var numProduct = Number($(this).next().val());
         if(numProduct > 0) $(this).next().val(numProduct - 1);
     });
 
-    $('.btn-num-product-up').on('click', function(){
+    $(document).on('click', '.btn-num-product-up', function(){
         var numProduct = Number($(this).prev().val());
         $(this).prev().val(numProduct + 1);
     });
@@ -270,11 +270,23 @@
     [ Show modal1 ]*/
     $('.js-show-modal1').on('click',function(e){
         e.preventDefault();
-        $('.js-modal1').addClass('show-modal1');
+
+        $.ajax({
+            url: $(this).data('action'),
+            type: 'GET',
+            data: {_method: 'GET'},
+            success: function (data) {
+                $('body').append(data);
+
+                $('.js-modal1').addClass('show-modal1');
+            }
+        });
     });
 
-    $('.js-hide-modal1').on('click',function(){
-        $('.js-modal1').removeClass('show-modal1');
+    $(document).on('click', '.js-hide-modal1',function(e){
+        e.preventDefault();
+
+        $('.js-modal1').removeClass('show-modal1').remove();
     });
 
 

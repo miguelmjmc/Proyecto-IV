@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="product")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductRepository")
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity({"code", "productBrand"})
+ * @UniqueEntity({"code", "description", "productBrand"})
  */
 class Product extends AbstractCrud
 {
@@ -80,6 +80,20 @@ class Product extends AbstractCrud
     private $comment;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="viewCounter", type="integer")
+     */
+    private $viewCounter = 0;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="img", type="string", length=255, nullable=true)
+     */
+    private $img;
+
+    /**
      * @var ProductBrand
      *
      * @Assert\NotBlank
@@ -91,12 +105,16 @@ class Product extends AbstractCrud
     /**
      * @var ProductCategory
      *
+     * @Assert\Count(min = 1)
+     *
      * @ORM\ManyToMany(targetEntity="ProductCategory", inversedBy="product")
      */
     private $productCategory;
 
     /**
      * @var ArrayCollection
+     *
+     * @Assert\Count(min = 1)
      *
      * @ORM\ManyToMany(targetEntity="Vehicle", inversedBy="product")
      */
@@ -221,11 +239,11 @@ class Product extends AbstractCrud
     /**
      * Set comment.
      *
-     * @param string $comment
+     * @param string|null $comment
      *
      * @return Product
      */
-    public function setComment($comment)
+    public function setComment($comment = null)
     {
         $this->comment = $comment;
 
@@ -235,11 +253,59 @@ class Product extends AbstractCrud
     /**
      * Get comment.
      *
-     * @return string
+     * @return string|null
      */
     public function getComment()
     {
         return $this->comment;
+    }
+
+    /**
+     * Set viewCounter.
+     *
+     * @param int $viewCounter
+     *
+     * @return Product
+     */
+    public function setViewCounter($viewCounter)
+    {
+        $this->viewCounter = $viewCounter;
+
+        return $this;
+    }
+
+    /**
+     * Get viewCounter.
+     *
+     * @return int
+     */
+    public function getViewCounter()
+    {
+        return $this->viewCounter;
+    }
+
+    /**
+     * Set img.
+     *
+     * @param string|null $img
+     *
+     * @return Product
+     */
+    public function setImg($img = null)
+    {
+        $this->img = $img;
+
+        return $this;
+    }
+
+    /**
+     * Get img.
+     *
+     * @return string|null
+     */
+    public function getImg()
+    {
+        return $this->img;
     }
 
     /**

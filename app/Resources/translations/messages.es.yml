@@ -9,8 +9,6 @@ New password: 'Nueva Contraseña'
 Repeat password: 'Repita la contraseña'
 Email: 'Correo electronico'
 Phone: Teléfono
-Phone1: 'Teléfono Principal'
-Phone2: 'Teléfono Alternativo'
 Slogan: Eslogan
 Select: Seleccione...
 Status: Estado
@@ -20,22 +18,10 @@ Rol: Rol
 User: Usuario
 Admin: Administrador
 File: Imagen
-Latitude: Latitud
-Longitude: Longitud
 Date: Fecha
 Comment: Observaciones
-Mission: Misión
-Vision: Visión
-History: Historia
-Facebook: Facebook
-Twitter: Twitter
-Instagram: Instagram
-Youtube: Youtube
-Whatsapp: Whatsapp
-Telegram: Telegram
-Skype: Skype
 Vehicle brand: Marca
-Vehicle type: Tipo
+Vehicle category: Categoría
 Years: Años de la Serie
 Code: Código
 Description: Descripción
@@ -44,3 +30,158 @@ Product category: Categoria
 Vehicle: Vehiculos
 Price: Precio
 Stock: Existencia
+Series start: 'Año de Inicio de la Serialización'
+Series end: 'Año del Cese de la Serialización'
+
+
+
+########################################################################################################################
+# Product Category
+########################################################################################################################
+productCategory_name_label: 'Nombre'
+productCategory_name_placeholder: 'Nombre de la Categoría'
+productCategory_name_title: 'Nombre de la Categoría'
+
+########################################################################################################################
+# Product Brand
+########################################################################################################################
+productBrand_name_label: 'Nombre'
+productBrand_name_placeholder: 'Nombre de la Marca'
+productBrand_name_title: 'Nombre de la Marca'
+
+########################################################################################################################
+# Product
+########################################################################################################################
+product_code_label: 'Código'
+product_code_placeholder: 'Código del Producto'
+product_code_title: 'Código del Producto'
+
+product_description_label: 'Descripción'
+product_description_placeholder: 'Descripción del Producto'
+product_description_title: 'Descripción del Producto'
+
+product_productBrand_label: 'Marca'
+product_productBrand_placeholder: 'Seleccione la Marca...'
+product_productBrand_title: 'Marca del Producto'
+
+product_productCategory_label: 'Categoría'
+product_productCategory_title: 'Seleccione la Categoría...'
+
+product_vehicle_label: 'Vehículos'
+product_vehicle_title: 'Seleccione los vehículos...'
+
+product_price_label: 'Precio'
+product_price_placeholder: '0.00'
+product_price_title: 'Precio del Producto'
+
+product_stock_label: 'Existencia'
+product_stock_placeholder: '0'
+product_stock_title: 'Existencia del Producto'
+
+product_comment_label: 'Detalles'
+product_comment_placeholder: 'Detalles del Producto'
+product_comment_title: 'Detalles del Producto'
+
+########################################################################################################################
+# Vehicle Category
+########################################################################################################################
+vehicleCategory_name_label: 'Nombre'
+vehicleCategory_name_placeholder: 'Nombre de la Categoría'
+vehicleCategory_name_title: 'Nombre de la Categoría'
+
+########################################################################################################################
+# Vehicle Brand
+########################################################################################################################
+vehicleBrand_name_label: 'Nombre'
+vehicleBrand_name_placeholder: 'Nombre de la Marca'
+vehicleBrand_name_title: 'Nombre de la Marca'
+
+########################################################################################################################
+# Vehicle
+########################################################################################################################
+vehicle_name_label: 'Nombre'
+vehicle_name_placeholder: 'Nombre del Vehículo'
+vehicle_name_title: 'Nombre del Vehículo'
+
+vehicle_vehicleBrand_label: 'Marca'
+vehicle_vehicleBrand_placeholder: 'Seleccione la Marca...'
+vehicle_vehicleBrand_title: 'Marca del Vehículo'
+
+vehicle_vehicleCategory_label: 'Categoría'
+vehicle_vehicleCategory_placeholder: 'Seleccione la Categoría...'
+vehicle_vehicleCategory_title: 'Categoría del Vehículo'
+
+vehicle_seriesStart_label: 'Año del Inicio de la Serialización'
+vehicle_seriesStart_placeholder: '2000'
+vehicle_seriesStart_title: 'Año del Inicio de la Serialización'
+
+vehicle_seriesEnd_label: 'Año del Cese de la Serialización'
+vehicle_seriesEnd_placeholder: '2000'
+vehicle_seriesEnd_title: 'Año del Sece de la Serialización'
+
+########################################################################################################################
+# Company settings
+########################################################################################################################
+companySettings_identificationNumber_label: 'RIF'
+companySettings_identificationNumber_placeholder: 'J-00000000-0'
+companySettings_identificationNumber_title: 'RIF de la compañia'
+
+companySettings_name_label: 'Nombre de la Compañia'
+companySettings_name_placeholder: 'Nombre de la Compañia'
+companySettings_name_title: 'Nombre de la Compañia'
+
+companySettings_slogan_label: 'Eslogan'
+companySettings_slogan_placeholder: 'Eslogan de la compañia'
+companySettings_slogan_title: 'Eslogan de la compañia'
+
+companySettings_address_label: 'Dirección'
+companySettings_address_placeholder: 'Dirección sede de la compañia'
+companySettings_address_title: 'Dirección sede de la compañia'
+
+companySettings_latitude_label: 'Latitud'
+companySettings_latitude_placeholder: '10.665160'
+companySettings_latitude_title: 'Latitud sede de la compañia'
+
+companySettings_longitude_label: 'Longitud'
+companySettings_longitude_placeholder: '-63.253868'
+companySettings_longitude_title: 'Longitud sede de la compañia'
+
+companySettings_email_label: 'Correo Electrónico'
+companySettings_email_placeholder: 'ejemplo@mail.com'
+companySettings_email_title: 'Correo electrónico de la compañia'
+
+companySettings_phone1_label: 'Teléfono Principal'
+companySettings_phone1_placeholder: '(0000) 000-0000'
+companySettings_phone1_title: 'Telégono principal de contacto de la compañia'
+
+companySettings_phone2_label: 'Teléfono Alternativo'
+companySettings_phone2_placeholder: '(0000) 000-0000'
+companySettings_phone2_title: 'Telégono alternativo de contacto de la compañia'
+
+companySettings_facebook_label: 'Facebook'
+companySettings_facebook_placeholder: 'facebook.com'
+companySettings_facebook_title: 'Enlace a la cuenta de facebook de la compañia'
+
+companySettings_twitter_label: 'Twitter'
+companySettings_twitter_placeholder: 'twitter.com'
+companySettings_twitter_title: 'Enlace a la cuenta de twitter de la compañia'
+
+companySettings_instagram_label: 'Instagram'
+companySettings_instagram_placeholder: 'instagram.com'
+companySettings_instagram_title: 'Enlace a la cuenta de instagram de la compañia'
+
+companySettings_youtube_label: 'Youtube'
+companySettings_youtube_placeholder: 'youtube.com'
+companySettings_youtube_title: 'Enlace a la cuenta de youtube de la compañia'
+
+companySettings_mission_label: 'Misión'
+companySettings_mission_placeholder: 'Misión de la compañia'
+companySettings_mission_title: 'Misión de la compañia'
+
+companySettings_vision_label: 'Visión'
+companySettings_vision_placeholder: 'Visión de la compañia'
+companySettings_vision_title: 'Visión de la compañia'
+
+companySettings_history_label: 'Historia'
+companySettings_history_placeholder: 'Historia de la compañia'
+companySettings_history_title: 'Historia de la compañia'

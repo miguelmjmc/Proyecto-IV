@@ -1,0 +1,123 @@
+{% extends '@App/adminlte/layout.html.twig' %}
+
+{% block main_title %}Ayuda{% endblock main_title %}
+
+{% block main_breadcrumb %}
+    <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> Inicio</a></li>
+    <li class="active"><a href="{{ path('help') }}"><i class="fa fa-info-circle"></i> Ayuda</a></li>
+{% endblock main_breadcrumb %}
+
+{% block main_container %}
+    <div class="row">
+        <div class="col-md-12" style="text-align: center">
+
+            <img class="img" src="{{ asset('bundles/app/img/logo.svg') }}" alt="logo" style="width: 100px">
+            <h2>E-System</h2>
+            <p>For a Free World</p>
+        </div>
+        <div id="faq" class="col-md-12">
+            <h2 class="section-title">Preguntas Frecuentes</h2>
+            <div>
+                <h3>¿Que navegador debo utilizar?</h3>
+                <div class="callout callout-warning">
+                    <h4>Noticia!</h4>
+                    <p>
+                        IE9 no admite transiciones o animaciones. La systema funcionará correctamente pero no
+                        las animaciones no lo harán.
+                    </p>
+                </div>
+                <p>E-system soporta los siguientes navegadores:</p>
+                <ul>
+                    <li>IE9+</li>
+                    <li>Edge (latest)</li>
+                    <li>Firefox (latest)</li>
+                    <li>Safari (latest)</li>
+                    <li>Chrome (latest)</li>
+                    <li>Opera (latest)</li>
+                </ul>
+            </div>
+            <div>
+                <h3>¿Cómo puedo recibir notificaciones de las nuevas versiones de E-system?</h3>
+                <p>
+                    La mejor opción es suscribirse a nuestra lista de correo escribiendonos a
+                    <a href="mailto:newsletter@esystem.com" target="_blank">newsletter@esystem.com</a>. Si eso no le
+                    resulta atractivo, puede ver el repositorio en
+                    <a href="https://github.com" target="_blank">Github</a> de vez en cuando para obtener
+                    actualizaciones y anuncios.
+                </p>
+            </div>
+        </div>
+        <div id="documentation" class="col-md-12">
+            <h2 class="section-title">Manual del Usuario</h2>
+            <div id="installation">
+                <h3>Instalación</h3>
+                <p>
+                    AdminLTE can be installed using multiple methods. Pick your favorite method from
+                    the list below.
+                    Please be sure to check the <a href="/adminlte-docs/{v}/dependencies">dependencies
+                        section</a>
+                    before continuing.
+                </p>
+                <h3>Download</h3>
+                <h4>From Github</h4>
+                <p>Visit the <a href="https://github.com/almasaeed2010/AdminLTE/releases">releases
+                        section on Github</a> and
+                    download the latest release.</p>
+                <p>
+                    <a href="https://github.com/almasaeed2010/AdminLTE/releases"
+                       class="btn btn-primary" target="_blank">
+                        Download Latest Release
+                    </a>
+                </p>
+                <h3>Command Line</h3>
+                <h4>Via NPM</h4>
+                <pre><code>npm install admin-lte --save</code></pre>
+                <h4>Via Bower</h4>
+                <pre><code>bower install admin-lte</code></pre>
+                <p>If bower asks which version of jQuery to use, choose version 3 or above.</p>
+                <h4>Via Composer</h4>
+                <pre><code>composer require "almasaeed2010/adminlte=~2.4"</code></pre>
+                <h4>Via Git</h4>
+                <ul>
+                    <li>Fork the repository (<a href="https://help.github.com/articles/fork-a-repo/">guide</a>).</li>
+                    <li>
+                        Clone to your machine.
+                        <pre><code>git clone https://github.com/YOUR_USERNAME/AdminLTE.git</code></pre>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <h2 class="section-title">Acerca de E-system</h2>
+            <p>
+                E-system es un proyecto de código abierto con distribuido bajo la
+                <a href="http://opensource.org/licenses/MIT" target="_blank">Licensia MIT</a>. Esto le permite
+                hacer casi cualquier cosa que desee siempre que incluya los derechos de autor en "todas las
+                copias o partes sustanciales del Software". No se requiere atribución (aunque muy apreciada).
+            </p>
+
+            <h4>Lo que se le <b class="text-green">permite</b> hacer con E-system</h4>
+            <ul>
+                <li>Uso en proyectos comerciales.</li>
+                <li>Uso en proyectos personales / privados.</li>
+                <li>Modificar y cambiar el sistema.</li>
+                <li>Distribución del código.</li>
+            </ul>
+
+            <h4>Lo que se le <b class="text-red">prohíbe</b> hacer con E-system</h4>
+            <ul>
+                <li>El trabajo se proporciona "tal cual". No puede responsabilizar al autor.</li>
+            </ul>
+        </div>
+
+        <div class="col-md-12">
+            <h2 class="section-title">Soporte</h2>
+            <p>
+                Cualquier duda o sugerencia, contactanos al correo
+                <a href="mailto:support@esystem.com">support@esystem.com</a>
+            </p>
+        </div>
+    </div>
+
+{% endblock main_container %}

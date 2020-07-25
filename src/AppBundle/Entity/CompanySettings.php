@@ -160,27 +160,6 @@ class CompanySettings
     /**
      * @var string
      *
-     * @ORM\Column(name="whatsapp", type="string", length=255, nullable=true)
-     */
-    private $whatsapp;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="telegram", type="string", length=255, nullable=true)
-     */
-    private $telegram;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="skype", type="string", length=255, nullable=true)
-     */
-    private $skype;
-
-    /**
-     * @var string
-     *
      * @Assert\NotBlank
      * @Assert\Length(min = 10, max = 400)
      *
@@ -554,78 +533,6 @@ class CompanySettings
     public function getYoutube()
     {
         return $this->youtube;
-    }
-
-    /**
-     * Set whatsapp.
-     *
-     * @param string $whatsapp
-     *
-     * @return CompanySettings
-     */
-    public function setWhatsapp($whatsapp)
-    {
-        $this->whatsapp = $whatsapp;
-
-        return $this;
-    }
-
-    /**
-     * Get whatsapp.
-     *
-     * @return string
-     */
-    public function getWhatsapp()
-    {
-        return $this->whatsapp;
-    }
-
-    /**
-     * Set telegram.
-     *
-     * @param string $telegram
-     *
-     * @return CompanySettings
-     */
-    public function setTelegram($telegram)
-    {
-        $this->telegram = $telegram;
-
-        return $this;
-    }
-
-    /**
-     * Get telegram.
-     *
-     * @return string
-     */
-    public function getTelegram()
-    {
-        return $this->telegram;
-    }
-
-    /**
-     * Set skype.
-     *
-     * @param string $skype
-     *
-     * @return CompanySettings
-     */
-    public function setSkype($skype)
-    {
-        $this->skype = $skype;
-
-        return $this;
-    }
-
-    /**
-     * Get skype.
-     *
-     * @return string
-     */
-    public function getSkype()
-    {
-        return $this->skype;
     }
 
     /**

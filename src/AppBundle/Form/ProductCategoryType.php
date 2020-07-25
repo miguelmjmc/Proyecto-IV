@@ -13,7 +13,17 @@ class ProductCategoryType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
+        $builder->add(
+            'name',
+            null,
+            array(
+                'label' => 'productCategory_name_label',
+                'attr' => array(
+                    'placeholder' => 'productCategory_name_placeholder',
+                    'title' => 'productCategory_name_title',
+                ),
+            )
+        );
     }
 
     /**
@@ -21,9 +31,11 @@ class ProductCategoryType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\ProductCategory'
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'AppBundle\Entity\ProductCategory',
+            )
+        );
     }
 
     /**

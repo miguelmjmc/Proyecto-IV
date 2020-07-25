@@ -10,4 +10,45 @@ namespace AppBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function countItem($slug = 1, $options = array())
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->select('count(u.id)')
+        ;
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function getItems($slug = 1, $options = array())
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->setFirstResult(($slug - 1) * 12)
+            ->setMaxResults(12)
+        ;
+
+        if ($options['orderBy']) {
+            switch ($options['orderBy']) {
+                case 'price-asc':
+                    $qb->orderBy('p.price', 'ASC');
+                    break;
+                case 'price-desc':
+                    $qb->orderBy('p.price', 'DESC');
+                    break;
+                case 'views-asc':
+                    $qb->orderBy('p.viewCounter', 'ASC');
+                    break;
+                case 'views-desc':
+                    $qb->orderBy('p.viewCounter', 'DESC');
+                    break;
+                case 'update-asc':
+                    $qb->orderBy('p.updatedAt', 'ASC');
+                    break;
+                case 'update-desc':
+                    $qb->orderBy('p.updatedAt', 'DESC');
+                    break;
+            }
+        }
+
+        return $qb->getQuery()->execute();
+    }
 }

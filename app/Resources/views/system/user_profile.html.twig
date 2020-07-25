@@ -19,13 +19,15 @@
         </div>
         <div class="box-body">
             <div class="row">
-                <div class="col-md-12" style="height: 34px">
-                    <button class="btn btn-primary float-right modal-trigger" data-action="{{ path('mjmc_crud', { entityName: 'User', id: app.user.id }) }}" data-method="PUT">Editar</button>
-                </div>
+                {% if form.vars.value.id == app.user.id %}
+                    <div class="col-md-12" style="height: 34px">
+                        <button class="btn btn-primary float-right modal-trigger" data-action="{{ path('mjmc_crud', { entityName: 'User', id: app.user.id }) }}" data-method="PUT">Editar</button>
+                    </div>
+                {% endif %}
                 <div class="col-md-6">
                     <div class="img-container">
                         <label class="img-label">Foto de Perfil</label>
-                        <img class="img" src="{{ asset(form.vars.value.img|default('bundles/app/img/default.png')) }}">
+                        <img class="img" src="{{ asset(form.vars.value.img|default('bundles/app/img/user.png')) }}">
                     </div>
                 </div>
                 <div class="col-md-6">

@@ -1,0 +1,20 @@
+.block2 .block2-pic {
+    height: 300px;
+}
+
+.block2 .block2-pic img {
+    height: 100%;
+    object-fit: contain;
+}
+
+.block2 .block2-btn {
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.5), 0 10px 20px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+.sec-product-detail .slick3 .item-slick3 img {
+    margin: 0 auto;
+    max-height: 400px;
+    max-width: 400px;
+    object-fit: contain;
+}

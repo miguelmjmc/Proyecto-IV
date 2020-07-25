@@ -17,7 +17,7 @@ window.onload = function () {
     var events = {
         modal: {
             preEvent: '',
-            successEvent: 'modal.',
+            successEvent: 'modal.success',
             errorEvent: '',
             postEvent: ''
         },
@@ -108,6 +108,7 @@ window.onload = function () {
     if ($.fn.selectpicker) {
         $(document).on('load', function () {
             $('.selectpicker').selectpicker({
+                actionsBox: true,
                 liveSearch: true,
                 selectedTextFormat: 'count'
             });
@@ -117,6 +118,7 @@ window.onload = function () {
 
         $(document).on('modal.success', function () {
             $(document).find('#modal-default .selectpicker').selectpicker({
+                actionsBox: true,
                 liveSearch: true,
                 selectedTextFormat: 'count'
             });

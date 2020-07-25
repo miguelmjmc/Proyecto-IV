@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\CompanySettings;
+use AppBundle\Entity\Product;
+use AppBundle\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,11 +31,14 @@ class WebsiteController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param int $slug
+     *
      * @return Response
      *
-     * @Route("/product", name="website_product")
+     * @Route("/products/{slug}", defaults={"slug": 1}, name="website_products")
      */
-    public function productAction()
+    public function productsAction(Request $request, $slug)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -43,17 +48,37 @@ class WebsiteController extends Controller
             $companySettings = new CompanySettings();
         }
 
-        return $this->render('website/product.html.twig', array('companySettings' => $companySettings));
+
+        $options = array(
+            'orderBy' => $request->get('orderBy'),
+        );
+
+
+        /** @var ProductRepository $repository */
+        $repository = $entityManager->getRepository(Product::class);
+
+        $products = $repository->getItems($slug, $options);
+
+        return $this->render(
+            'website/products.html.twig',
+            array('companySettings' => $companySettings, 'products' => $products)
+        );
     }
 
     /**
+     * @param Product $product
+     *
      * @return Response
      *
-     * @Route("/blog", name="website_blog")
+     * @Route("/product/{id}", name="website_product")
      */
-    public function blogAction()
+    public function productAction(Product $product)
     {
         $entityManager = $this->getDoctrine()->getManager();
+
+        $product->setViewCounter($product->getViewCounter() + 1);
+
+        $entityManager->flush();
 
         $companySettings = $entityManager->getRepository(CompanySettings::class)->find(1);
 
@@ -61,42 +86,12 @@ class WebsiteController extends Controller
             $companySettings = new CompanySettings();
         }
 
-        return $this->render('website/blog.html.twig', array('companySettings' => $companySettings));
-    }
+        $products = $entityManager->getRepository(Product::class)->findBy(array(), array('viewCounter' => 'desc'), 8);
 
-    /**
-     * @return Response
-     *
-     * @Route("/about", name="website_about")
-     */
-    public function aboutAction()
-    {
-        $entityManager = $this->getDoctrine()->getManager();
 
-        $companySettings = $entityManager->getRepository(CompanySettings::class)->find(1);
-
-        if (!$companySettings instanceof CompanySettings) {
-            $companySettings = new CompanySettings();
-        }
-
-        return $this->render('website/about.html.twig', array('companySettings' => $companySettings));
-    }
-
-    /**
-     * @return Response
-     *
-     * @Route("/contact", name="website_contact")
-     */
-    public function contactAction()
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $companySettings = $entityManager->getRepository(CompanySettings::class)->find(1);
-
-        if (!$companySettings instanceof CompanySettings) {
-            $companySettings = new CompanySettings();
-        }
-
-        return $this->render('website/contact.html.twig', array('companySettings' => $companySettings));
+        return $this->render(
+            'website/product.html.twig',
+            array('companySettings' => $companySettings, 'product' => $product, 'products' => $products)
+        );
     }
 }

@@ -69,6 +69,12 @@ toastr.options = {
 
 $(document).ready(function () {
 
+    initializeInputs();
+
+    $(document).on('modal.success', function () {
+        initializeInputs();
+    });
+
     $('.animsition').animsition({
         timeout: true
     });
@@ -76,12 +82,12 @@ $(document).ready(function () {
 
     $(document).on('navigation.success', function (event) {
         $('.box').boxWidget({
-            animationSpeed : 500,
+            animationSpeed: 500,
             collapseTrigger: '[data-widget="collapse"]',
-            removeTrigger  : '[data-widget="remove"]',
-            collapseIcon   : 'fa-minus',
-            expandIcon     : 'fa-plus',
-            removeIcon     : 'fa-times'
+            removeTrigger: '[data-widget="remove"]',
+            collapseIcon: 'fa-minus',
+            expandIcon: 'fa-plus',
+            removeIcon: 'fa-times'
         });
 
         $('.datatable').each(function (index) {
@@ -265,8 +271,8 @@ $(document).ready(function () {
 
     $(document).on('focus', '.money', function () {
         $(this).maskMoney({
-            decimal: ',',
-            thousands: '.',
+            decimal: '.',
+            thousands: ',',
             allowZero: true
         });
     });
@@ -542,14 +548,11 @@ function dateFilter(settings, json, dateColumn) {
 
                 if (iMin === '' && iMax === '') {
                     return true;
-                }
-                else if (iMin === '' && iDate < iMax) {
+                } else if (iMin === '' && iDate < iMax) {
                     return true;
-                }
-                else if (iMin <= iDate && '' === iMax) {
+                } else if (iMin <= iDate && '' === iMax) {
                     return true;
-                }
-                else if (iMin <= iDate && iDate <= iMax) {
+                } else if (iMin <= iDate && iDate <= iMax) {
                     return true;
                 }
 
@@ -584,9 +587,11 @@ function dateFilter(settings, json, dateColumn) {
 }
 
 function initializeInputs() {
+
     $('.modal-container select[readonly]').attr('disabled', true);
 
     $('.selectpicker').selectpicker({
+        actionsBox: true,
         liveSearch: true,
         selectedTextFormat: 'count'
     });

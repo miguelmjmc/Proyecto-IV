@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="vehicle")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\VehicleRepository")
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity({"name", "vehicleBrand", "years"})
+ * @UniqueEntity({"name", "vehicleBrand", "seriesStart", "seriesEnd"})
  */
 class Vehicle extends AbstractCrud
 {
@@ -44,20 +44,30 @@ class Vehicle extends AbstractCrud
      * @var string
      *
      * @Assert\NotBlank
-     * @Assert\Length(min = 3, max = 50)
+     * @Assert\Range(min = 1950, max = 2020)
      *
-     * @ORM\Column(name="serie", type="string", length=255)
+     * @ORM\Column(name="seriesStart", type="integer")
      */
-    private $years;
+    private $seriesStart;
 
     /**
-     * @var VehicleType
+     * @var string
+     *
+     * @Assert\NotBlank
+     * @Assert\Range(min = 1950, max = 2020)
+     *
+     * @ORM\Column(name="seriesEnd", type="integer")
+     */
+    private $seriesEnd;
+
+    /**
+     * @var VehicleCategory
      *
      * @Assert\NotBlank
      *
-     * @ORM\ManyToOne(targetEntity="VehicleType", inversedBy="vehicle")
+     * @ORM\ManyToOne(targetEntity="VehicleCategory", inversedBy="vehicle")
      */
-    private $vehicleType;
+    private $vehicleCategory;
 
     /**
      * @var VehicleBrand
@@ -87,9 +97,17 @@ class Vehicle extends AbstractCrud
     /**
      * @return string
      */
-    public function fullName()
+    public function getSeries()
     {
-        return $this->vehicleBrand->getName() . ' ' . $this->name . ' (' . $this->years . ')';
+        return $this->seriesStart.' - '.$this->seriesEnd;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->vehicleBrand->getName().' '.$this->name.' ('.$this->getSeries().')';
     }
 
     /**
@@ -127,51 +145,75 @@ class Vehicle extends AbstractCrud
     }
 
     /**
-     * Set years.
+     * Set seriesStart.
      *
-     * @param string $years
+     * @param int $seriesStart
      *
      * @return Vehicle
      */
-    public function setYears($years)
+    public function setSeriesStart($seriesStart)
     {
-        $this->years = $years;
+        $this->seriesStart = $seriesStart;
 
         return $this;
     }
 
     /**
-     * Get years.
+     * Get seriesStart.
      *
-     * @return string
+     * @return int
      */
-    public function getYears()
+    public function getSeriesStart()
     {
-        return $this->years;
+        return $this->seriesStart;
     }
 
     /**
-     * Set vehicleType.
+     * Set seriesEnd.
      *
-     * @param \AppBundle\Entity\VehicleType|null $vehicleType
+     * @param int $seriesEnd
      *
      * @return Vehicle
      */
-    public function setVehicleType(\AppBundle\Entity\VehicleType $vehicleType = null)
+    public function setSeriesEnd($seriesEnd)
     {
-        $this->vehicleType = $vehicleType;
+        $this->seriesEnd = $seriesEnd;
 
         return $this;
     }
 
     /**
-     * Get vehicleType.
+     * Get seriesEnd.
      *
-     * @return \AppBundle\Entity\VehicleType|null
+     * @return int
      */
-    public function getVehicleType()
+    public function getSeriesEnd()
     {
-        return $this->vehicleType;
+        return $this->seriesEnd;
+    }
+
+    /**
+     * Set vehicleCategory.
+     *
+     * @param \AppBundle\Entity\VehicleCategory|null $vehicleCategory
+     *
+     * @return Vehicle
+     */
+    public function setVehicleCategory(\AppBundle\Entity\VehicleCategory $vehicleCategory = null)
+    {
+        $this->vehicleCategory = $vehicleCategory;
+
+        return $this;
+    }
+
+    /**
+     * Get vehicleCategory.
+     *
+     * @return \AppBundle\Entity\VehicleCategory|null
+     */
+    public function getVehicleCategory()
+    {
+        return $this->vehicleCategory;
     }
 
     /**
