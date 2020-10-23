@@ -7,6 +7,8 @@ use AppBundle\Entity\CurrencyConversion;
 use AppBundle\Entity\Product;
 use AppBundle\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,7 +31,9 @@ class WebsiteController extends Controller
         }
 
         $currencyConversion = $entityManager->getRepository(CurrencyConversion::class)->findBy(
-            array(), array('createdAt' => 'desc'), 1
+            array(),
+            array('createdAt' => 'desc'),
+            1
         );
 
         $currencyConversion = isset($currencyConversion[0]) ? $currencyConversion[0] : new CurrencyConversion();
@@ -41,8 +45,8 @@ class WebsiteController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param int $slug
+     * @param  Request  $request
+     * @param  int  $slug
      *
      * @return Response
      *
@@ -59,7 +63,9 @@ class WebsiteController extends Controller
         }
 
         $currencyConversion = $entityManager->getRepository(CurrencyConversion::class)->findBy(
-            array(), array('createdAt' => 'desc'), 1
+            array(),
+            array('createdAt' => 'desc'),
+            1
         );
 
         $currencyConversion = isset($currencyConversion[0]) ? $currencyConversion[0] : new CurrencyConversion();
@@ -84,7 +90,7 @@ class WebsiteController extends Controller
     }
 
     /**
-     * @param Product $product
+     * @param  Product  $product
      *
      * @return Response
      *
@@ -105,7 +111,9 @@ class WebsiteController extends Controller
         }
 
         $currencyConversion = $entityManager->getRepository(CurrencyConversion::class)->findBy(
-            array(), array('createdAt' => 'desc'), 1
+            array(),
+            array('createdAt' => 'desc'),
+            1
         );
 
         $currencyConversion = isset($currencyConversion[0]) ? $currencyConversion[0] : new CurrencyConversion();
@@ -118,8 +126,120 @@ class WebsiteController extends Controller
                 'companySettings' => $companySettings,
                 'currencyConversion' => $currencyConversion,
                 'product' => $product,
-                'products' => $products
+                'products' => $products,
             )
         );
+    }
+
+    /**
+     * @param  Request  $request
+     *
+     * @return Response
+     *
+     * @Route("/cart", name="website_cart")
+     */
+    public function cartAction(Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $companySettings = $entityManager->getRepository(CompanySettings::class)->find(1);
+
+        if (!$companySettings instanceof CompanySettings) {
+            $companySettings = new CompanySettings();
+        }
+
+        $currencyConversion = $entityManager->getRepository(CurrencyConversion::class)->findBy(
+            array(),
+            array('createdAt' => 'desc'),
+            1
+        );
+
+        $currencyConversion = isset($currencyConversion[0]) ? $currencyConversion[0] : new CurrencyConversion();
+
+        $products = array();
+        $quantity = array();
+
+        if ($request->cookies->get('cart')) {
+            $cart = json_decode($request->cookies->get('cart'), true);
+
+            foreach ($cart as $item) {
+                if (!isset($quantity[$item])) {
+                    $quantity[$item] = 1;
+                    $products[] = $entityManager->getRepository(Product::class)->find($item);
+                } else {
+                    $quantity[$item]++;
+                }
+            }
+        }
+
+        return $this->render(
+            'website/cart.html.twig',
+            array(
+                'quantity' => $quantity,
+                'products' => $products,
+                'companySettings' => $companySettings,
+                'currencyConversion' => $currencyConversion,
+            )
+        );
+    }
+
+    /**
+     * @param  Request  $request
+     * @param  Product  $product
+     *
+     * @return Response
+     *
+     * @Route("/cart/addProduct/{id}", name="website_cart_addProduct")
+     */
+    public function cartAddProductAction(Request $request, Product $product)
+    {
+        if ($request->cookies->get('cart')) {
+            $cart = json_decode($request->cookies->get('cart'), true);
+        } else {
+            $cart = array();
+        }
+
+        $cart[] = $product->getId();
+
+        $cookie = new Cookie('cart', json_encode($cart));
+
+        $response = new RedirectResponse($this->generateUrl('website_cart'));
+        $response->headers->clearCookie('cart');
+        $response->headers->setCookie($cookie);
+
+        return $response;
+    }
+
+    /**
+     * @param  Request  $request
+     * @param  Product  $product
+     *
+     * @return Response
+     *
+     * @Route("/cart/removeProduct/{id}", name="website_cart_removeProduct")
+     */
+    public function cartRemoveProductAction(Request $request, Product $product)
+    {
+        if ($request->cookies->get('cart')) {
+            $cart = json_decode($request->cookies->get('cart'), true);
+        } else {
+            $cart = array();
+        }
+
+        foreach ($cart as $key => $item) {
+            if ($product->getId() === $item) {
+                unset($cart[$key]);
+
+                break;
+            }
+        }
+
+        $cookie = new Cookie('cart', json_encode($cart));
+
+        $response = new RedirectResponse($this->generateUrl('website_cart'));
+        $response->headers->clearCookie('cart');
+        $response->headers->setCookie($cookie);
+
+        return $response;
     }
 }
