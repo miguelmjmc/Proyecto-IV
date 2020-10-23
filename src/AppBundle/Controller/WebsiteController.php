@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\CompanySettings;
+use AppBundle\Entity\CurrencyConversion;
 use AppBundle\Entity\Product;
 use AppBundle\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -27,7 +28,16 @@ class WebsiteController extends Controller
             $companySettings = new CompanySettings();
         }
 
-        return $this->render('website/index.html.twig', array('companySettings' => $companySettings));
+        $currencyConversion = $entityManager->getRepository(CurrencyConversion::class)->findBy(
+            array(), array('createdAt' => 'desc'), 1
+        );
+
+        $currencyConversion = isset($currencyConversion[0]) ? $currencyConversion[0] : new CurrencyConversion();
+
+        return $this->render(
+            'website/index.html.twig',
+            array('companySettings' => $companySettings, 'currencyConversion' => $currencyConversion)
+        );
     }
 
     /**
@@ -48,11 +58,15 @@ class WebsiteController extends Controller
             $companySettings = new CompanySettings();
         }
 
+        $currencyConversion = $entityManager->getRepository(CurrencyConversion::class)->findBy(
+            array(), array('createdAt' => 'desc'), 1
+        );
+
+        $currencyConversion = isset($currencyConversion[0]) ? $currencyConversion[0] : new CurrencyConversion();
 
         $options = array(
             'orderBy' => $request->get('orderBy'),
         );
-
 
         /** @var ProductRepository $repository */
         $repository = $entityManager->getRepository(Product::class);
@@ -61,7 +75,11 @@ class WebsiteController extends Controller
 
         return $this->render(
             'website/products.html.twig',
-            array('companySettings' => $companySettings, 'products' => $products)
+            array(
+                'companySettings' => $companySettings,
+                'currencyConversion' => $currencyConversion,
+                'products' => $products
+            )
         );
     }
 
@@ -86,12 +104,22 @@ class WebsiteController extends Controller
             $companySettings = new CompanySettings();
         }
 
-        $products = $entityManager->getRepository(Product::class)->findBy(array(), array('viewCounter' => 'desc'), 8);
+        $currencyConversion = $entityManager->getRepository(CurrencyConversion::class)->findBy(
+            array(), array('createdAt' => 'desc'), 1
+        );
 
+        $currencyConversion = isset($currencyConversion[0]) ? $currencyConversion[0] : new CurrencyConversion();
+
+        $products = $entityManager->getRepository(Product::class)->findBy(array(), array('viewCounter' => 'desc'), 8);
 
         return $this->render(
             'website/product.html.twig',
-            array('companySettings' => $companySettings, 'product' => $product, 'products' => $products)
+            array(
+                'companySettings' => $companySettings,
+                'currencyConversion' => $currencyConversion,
+                'product' => $product,
+                'products' => $products
+            )
         );
     }
 }

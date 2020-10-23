@@ -1,9 +1,10 @@
-ProductBrand: Marca
-ProductCategory: Categoría
-Product: Producto
-VehicleBrand: Marca
-VehicleCategory: Categoría
-Vehicle: Vehículo
-User: Usuario
-Client: Cliente
+ProductBrand: 'Marca'
+ProductCategory: 'Categoría'
+Product: 'Producto'
+VehicleBrand: 'Marca'
+VehicleCategory: 'Categoría'
+Vehicle: 'Vehículo'
+User: 'Usuario'
+Client: 'Cliente'
 CompanySettings: 'Información de la Empresa'
+CurrencyConversion: 'Conversión de Moneda'

@@ -87,7 +87,7 @@ class UserType extends AbstractType
                     array(
                         'mapped' => false,
                         'data' => $rol,
-                        'choices' => array('User' => 'ROLE_ADMIN', 'Admin' => 'ROLE_SUPER_ADMIN'),
+                        'choices' => array('Operator' => 'ROLE_ADMIN', 'Admin' => 'ROLE_SUPER_ADMIN'),
                     )
                 )
                 ->add(
@@ -158,7 +158,7 @@ class UserType extends AbstractType
                         'disabled' => true,
                         'mapped' => false,
                         'data' => $rol,
-                        'choices' => array('User' => 'ROLE_ADMIN', 'Admin' => 'ROLE_SUPER_ADMIN'),
+                        'choices' => array('Operator' => 'ROLE_ADMIN', 'Admin' => 'ROLE_SUPER_ADMIN'),
                     )
                 );
 
@@ -221,7 +221,7 @@ class UserType extends AbstractType
                     array(
                         'mapped' => false,
                         'data' => $rol,
-                        'choices' => array('User' => 'ROLE_ADMIN', 'Admin' => 'ROLE_SUPER_ADMIN'),
+                        'choices' => array('Operator' => 'ROLE_ADMIN', 'Admin' => 'ROLE_SUPER_ADMIN'),
                     )
                 );
         }

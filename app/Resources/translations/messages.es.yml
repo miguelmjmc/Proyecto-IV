@@ -15,7 +15,7 @@ Status: Estado
 Enabled: Habilitado
 Disabled: Desabilitado
 Rol: Rol
-User: Usuario
+Operator: Operador
 Admin: Administrador
 File: Imagen
 Date: Fecha
@@ -185,3 +185,14 @@ companySettings_vision_title: 'Visión de la compañia'
 companySettings_history_label: 'Historia'
 companySettings_history_placeholder: 'Historia de la compañia'
 companySettings_history_title: 'Historia de la compañia'
+
+########################################################################################################################
+# Currency Conversion
+########################################################################################################################
+currencyConversion_dollarValue_label: 'Valor del Dolar'
+currencyConversion_dollarValue_placeholder: '0.00'
+currencyConversion_dollarValue_title: 'Valor del Dolar'
+
+currencyConversion_euroValue_label: 'Valor del Euro'
+currencyConversion_euroValue_placeholder: '0.00'
+currencyConversion_euroValue_title: 'Valor del Euro'

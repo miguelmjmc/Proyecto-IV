@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Client;
+use AppBundle\Entity\CurrencyConversion;
 use AppBundle\Entity\OperationLog;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductBrand;
@@ -232,7 +233,7 @@ class DatatableController extends Controller
                 $item->getCode(),
                 $item->getDescription(),
                 $item->getProductBrand()->getName(),
-                $item->getPrice(),
+                '$'.number_format($item->getPrice(), 2, ',', '.'),
                 $item->getStock(),
                 $btn,
             );
@@ -331,6 +332,39 @@ class DatatableController extends Controller
                 $item->getVehicleBrand()->getName(),
                 $item->getSeries(),
                 $item->getVehicleCategory()->getName(),
+                $btn,
+            );
+        }
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @return JsonResponse
+     *
+     * @Route("/list/currencyConversion", name="currencyConversion_list")
+     */
+    public function currencyConversionAction()
+    {
+        $collection = $this->getDoctrine()->getRepository(CurrencyConversion::class)->findAll();
+
+        $data = array('data' => array());
+
+        /** @var CurrencyConversion $item */
+        foreach ($collection as $item) {
+
+            $parameters = array(
+                'suffix' => 'Conversion de Moneda',
+                'actions' => array('show'),
+                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'CurrencyConversion', 'id' => $item->getId())),
+            );
+
+            $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
+
+            $data['data'][] = array(
+                $item->getLastUpdate() instanceof \DateTime ? $item->getLastUpdate()->format('Y/m/d H:i:s') : '',
+                number_format($item->getDollarValue(), 2, ',', '.').' Bs',
+                number_format($item->getEuroValue(), 2, ',', '.').' Bs',
                 $btn,
             );
         }

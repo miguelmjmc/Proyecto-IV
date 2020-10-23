@@ -39,6 +39,7 @@ class UserSubscriber implements EventSubscriberInterface
                 $data->addRole('ROLE_SUPER_ADMIN');
             } elseif ('ROLE_ADMIN' === $form['rol']->getData()) {
                 $data->removeRole('ROLE_SUPER_ADMIN');
+                $data->addRole('ROLE_ADMIN');
             }
 
             if ($data->getPlainPassword()) {

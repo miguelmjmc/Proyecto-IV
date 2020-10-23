@@ -66,7 +66,7 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/admin/users", name="users")
+     * @Route("/admin/config/users", name="users")
      */
     public function userAction()
     {
@@ -99,7 +99,7 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/admin/sessionLogs", name="session_logs")
+     * @Route("/admin/config/sessionLogs", name="session_logs")
      */
     public function sessionLogAction()
     {
@@ -109,7 +109,7 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/admin/operationLogs", name="operation_logs")
+     * @Route("/admin/config/operationLogs", name="operation_logs")
      */
     public function operationLogAction()
     {
@@ -119,7 +119,7 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/clients", name="clients")
+     * @Route("/admin/clients", name="clients")
      */
     public function clientAction()
     {
@@ -129,7 +129,7 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/products", name="products")
+     * @Route("/admin/products", name="products")
      */
     public function productAction()
     {
@@ -139,7 +139,7 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/vehicles", name="vehicles")
+     * @Route("/admin/vehicles", name="vehicles")
      */
     public function vehicleAction()
     {
@@ -149,7 +149,7 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/companySettings", name="company_settings")
+     * @Route("/admin/config/companySettings", name="company_settings")
      */
     public function companySettingsAction()
     {
@@ -167,7 +167,7 @@ class DefaultController extends Controller
      *
      * @return Response
      *
-     * @Route("/modal/companySettings", name="company_settings_modal")
+     * @Route("/admin/config/modal/companySettings", name="company_settings_modal")
      */
     public function companySettingsModalAction(Request $request)
     {
@@ -203,5 +203,15 @@ class DefaultController extends Controller
         );
 
         return $this->render('@App/base/modal.html.twig', $parameters);
+    }
+
+    /**
+     * @return Response
+     *
+     * @Route("/admin/config/currencyConversion", name="currency_conversion")
+     */
+    public function currencyConversionAction()
+    {
+        return $this->render('system/currency_conversion.html.twig');
     }
 }

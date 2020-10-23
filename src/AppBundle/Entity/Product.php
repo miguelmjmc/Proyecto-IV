@@ -15,7 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="product")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductRepository")
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity({"code", "description", "productBrand"})
+ * @UniqueEntity("code")
+ * @UniqueEntity({"description", "productBrand"})
  */
 class Product extends AbstractCrud
 {
@@ -36,7 +37,7 @@ class Product extends AbstractCrud
      * @Assert\NotBlank
      * @Assert\Length(min = 3, max = 50)
      *
-     * @ORM\Column(name="code", type="string", length=255)
+     * @ORM\Column(name="code", type="string", length=255, unique=true)
      */
     private $code;
 

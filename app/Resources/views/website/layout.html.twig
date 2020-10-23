@@ -211,11 +211,11 @@
 
                 <div class="col-sm-4 p-b-50">
                     <h4 class="stext-301 cl0 p-b-30">Tasa de Cambio</h4>
-                    <ul>
-                        <li class="p-b-10"><a href="#" class="stext-107 cl7 hov-cl1 trans-04">$1 = Bs. 74.000</a></li>
-                        <li class="p-b-10"><a href="#" class="stext-107 cl7 hov-cl1 trans-04">€1 = Bs. 84.000</a></li>
-                    </ul>
-                    <small>Fecha: 27/01/2019</small>
+                        <ul>
+                            <li class="p-b-10"><a href="#" class="stext-107 cl7 hov-cl1 trans-04">$1 = {{ currencyConversion.dollarValue|default|number_format(2, ',', '.') }} Bs</a></li>
+                            <li class="p-b-10"><a href="#" class="stext-107 cl7 hov-cl1 trans-04">€1 = {{ currencyConversion.euroValue|default|number_format(2, ',', '.') }} Bs</a></li>
+                        </ul>
+                        <small>Fecha: {{ currencyConversion.lastUpdate|date('Y/m/d') }}</small>
                 </div>
                 <div class="col-sm-4 p-b-50">
                     <h4 class="stext-301 cl0 p-b-30">Contáctanos</h4>

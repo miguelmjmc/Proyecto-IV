@@ -271,8 +271,8 @@ $(document).ready(function () {
 
     $(document).on('focus', '.money', function () {
         $(this).maskMoney({
-            decimal: '.',
-            thousands: ',',
+            decimal: ',',
+            thousands: '.',
             allowZero: true
         });
     });
