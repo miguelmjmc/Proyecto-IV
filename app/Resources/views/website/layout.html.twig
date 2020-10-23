@@ -127,7 +127,15 @@
                         {{ companySettings.slogan }}
                     </div>
                     <div class="right-top-bar flex-w h-full">
-                        <a href="{{ path('homepage') }}" class="flex-c-m trans-04 p-lr-25">Iniciar Sesión</a>
+                        <a href="{{ path('homepage') }}" class="flex-c-m trans-04 p-lr-25">
+                            {{ app.user ? 'Mi Cuenta' : 'Iniciar Sesión' }}
+                        </a>
+
+                        {% if app.user %}
+                            <a href="{{ path('fos_user_security_logout') }}" class="flex-c-m trans-04 p-lr-25">
+                                Cerrar Sesión
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

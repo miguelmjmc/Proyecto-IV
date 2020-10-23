@@ -71,14 +71,14 @@ class WebsiteController extends Controller
         /** @var ProductRepository $repository */
         $repository = $entityManager->getRepository(Product::class);
 
-        $products = $repository->getItems($slug, $options);
+        $products = $repository->findAll();
 
         return $this->render(
             'website/products.html.twig',
             array(
                 'companySettings' => $companySettings,
                 'currencyConversion' => $currencyConversion,
-                'products' => $products
+                'products' => $products,
             )
         );
     }
