@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\CompanySettings;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\Reservation;
 use AppBundle\Entity\User;
 use AppBundle\Form\CompanySettingsType;
 use AppBundle\Form\UserType;
@@ -28,16 +29,36 @@ class DefaultController extends Controller
 
         $recentlyUpdatedProducts = $em->getRepository(Product::class)->findBy(array(), array('updatedAt' => 'desc'), 4);
         $mostVisitedProducts = $em->getRepository(Product::class)->findBy(array(), array('viewCounter' => 'desc'), 4);
-        $mostReservedProducts = $em->getRepository(Product::class)->findBy(array(), array('updatedAt' => 'desc'), 4);
 
         $users = $em->getRepository(User::class)->findBy(array(), array('lastLogin' => 'desc'), 12);
+
+        $reservations = $em->getRepository(Reservation::class)->findAll();
+
+        $reservationAll = count($reservations);
+        $reservationFinished = 0;
+        $reservationInProgress = 0;
+        $reservationCanceled = 0;
+
+        /** @var Reservation $reservation */
+        foreach ($reservations as $reservation) {
+            if (5 === $reservation->getReservationStatus()->getId()) {
+                $reservationCanceled++;
+            } elseif (4 === $reservation->getReservationStatus()->getId()) {
+                $reservationFinished++;
+            } else {
+                $reservationInProgress++;
+            }
+        }
 
         return $this->render(
             'system/index.html.twig',
             array(
+                'reservationAll' => $reservationAll,
+                'reservationFinished' => $reservationFinished,
+                'reservationInProgress' => $reservationInProgress,
+                'reservationCanceled' => $reservationCanceled,
                 'recentlyUpdatedProducts' => $recentlyUpdatedProducts,
                 'mostVisitedProducts' => $mostVisitedProducts,
-                'mostReservedProducts' => $mostReservedProducts,
                 'users' => $users,
             )
         );

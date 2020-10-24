@@ -114,10 +114,6 @@ class Reservation extends AbstractCrud
             return '<span class="label label-success">'.$this->reservationStatus->getName().'</span>';
         }
 
-        if (1 === $this->reservationStatus->getId()) {
-            return '<span class="label label-info">'.$this->reservationStatus->getName().'</span>';
-        }
-
         return '<span class="label label-warning">'.$this->reservationStatus->getName().'</span>';
     }
 
