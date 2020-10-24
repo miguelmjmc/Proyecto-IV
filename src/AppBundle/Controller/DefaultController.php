@@ -149,6 +149,16 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
+     * @Route("/admin/slides", name="slides")
+     */
+    public function slideAction()
+    {
+        return $this->render('system/slide.html.twig');
+    }
+
+    /**
+     * @return Response
+     *
      * @Route("/admin/config/companySettings", name="company_settings")
      */
     public function companySettingsAction()

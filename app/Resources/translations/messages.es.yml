@@ -32,8 +32,11 @@ Price: Precio
 Stock: Existencia
 Series start: 'Año de Inicio de la Serialización'
 Series end: 'Año del Cese de la Serialización'
-
-
+Reservation status: 'Estado'
+Title1: 'Título 1'
+Title2: 'Título 2'
+Button text: 'Texto del Botón'
+Button link: 'Enlace'
 
 ########################################################################################################################
 # Product Category
@@ -211,3 +214,5 @@ checkout_email_title: 'Correo electrónico'
 checkout_phone_label: 'Teléfono'
 checkout_phone_placeholder: '(0000) 000-0000'
 checkout_phone_title: 'Telégono de contacto'
+
+checkout_submit: 'Enviar'

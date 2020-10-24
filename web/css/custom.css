@@ -214,3 +214,13 @@ form[readonly] input[readonly="readonly"] {
 .products-list .product-img img {
     object-fit: contain;
 }
+
+.table-reservation thead tr th, .table-reservation tbody tr td {
+    text-align: center;
+}
+
+.table-reservation tbody tr td img {
+    display: block;
+    margin: 0 auto;
+    max-width: 40px;
+}

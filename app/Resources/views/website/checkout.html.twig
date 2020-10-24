@@ -22,15 +22,27 @@
     <section class="sec-product-detail bg0 p-t-65 p-b-60">
         <div class="container">
             <div class="row">
-                <div class="col-12">
-                    <h2>Reservar Productos</h2>
-                </div>
-                <div class="col-12">
-                    Por favor complete el formulario para realizar la reservación de los productos.
-                </div>
-                <div class="col-12 p-t-20">
-                    {{ form (form) }}
-                </div>
+                {% if success|default %}
+                    <div class="col-12">
+                        <h2 class="text-center">Reserva de Productos Realizada Exitosamente</h2>
+                    </div>
+                    <div class="col-12 p-t-20">
+                        Nuestros servicio de atención al cliente se pondra en contacto con usted a la brevedad posible.
+                    </div>
+                    <div class="col-12 p-t-40 text-center">
+                        <i class="fa fa-check-circle-o" style="font-size: 20rem; color: #28A745;"></i>
+                    </div>
+                {% else %}
+                    <div class="col-12">
+                        <h2 class="text-center">Reservar Productos</h2>
+                    </div>
+                    <div class="col-12 p-t-20">
+                        Por favor complete el formulario para realizar la reservación de los productos.
+                    </div>
+                    <div class="col-12 p-t-20">
+                        {{ form (form) }}
+                    </div>
+                {% endif %}
             </div>
         </div>
     </section>

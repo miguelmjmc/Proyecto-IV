@@ -43,7 +43,7 @@ class Reservation extends AbstractCrud
      * @Assert\Length(min = 10, max = 50)
      * @Assert\Email()
      *
-     * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
 
@@ -96,7 +96,7 @@ class Reservation extends AbstractCrud
 
         /** @var ReservationJoinProduct $reservationJoinProduct */
         foreach ($this->reservationJoinProduct as $reservationJoinProduct) {
-            $total+= ($reservationJoinProduct->getPrice() * $reservationJoinProduct->getQuantity());
+            $total+= $reservationJoinProduct->getTotal();
         }
 
         return $total;

@@ -62,6 +62,13 @@ class ReservationJoinProduct
 
 
     /**
+     * @return float
+     */
+    public function getTotal() {
+        return $this->getPrice() * $this->getQuantity();
+    }
+
+    /**
      * Get id.
      *
      * @return int

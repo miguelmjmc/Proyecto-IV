@@ -8,6 +8,7 @@ use AppBundle\Entity\Product;
 use AppBundle\Entity\Reservation;
 use AppBundle\Entity\ReservationJoinProduct;
 use AppBundle\Entity\ReservationStatus;
+use AppBundle\Entity\Slide;
 use AppBundle\Form\CheckoutType;
 use AppBundle\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -43,9 +44,15 @@ class WebsiteController extends Controller
 
         $currencyConversion = isset($currencyConversion[0]) ? $currencyConversion[0] : new CurrencyConversion();
 
+        $slides = $entityManager->getRepository(Slide::class)->findBy(array(), array('createdAt' => 'desc'), 3);
+
         return $this->render(
             'website/index.html.twig',
-            array('companySettings' => $companySettings, 'currencyConversion' => $currencyConversion)
+            array(
+                'slides' => $slides,
+                'companySettings' => $companySettings,
+                'currencyConversion' => $currencyConversion
+            )
         );
     }
 

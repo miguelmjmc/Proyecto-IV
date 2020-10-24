@@ -44,6 +44,34 @@
                         </div>
                     </div>
                 {% endif %}
+
+                {% if form.vars.value.reservationJoinProduct|default %}
+                    <h4 class="text-center text-bold">Productos Reservados</h4>
+                    <table class="table table-bordered table-responsive table-reservation">
+                        <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Product</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for reservationJoinProduct in form.vars.value.reservationJoinProduct %}
+                                <tr>
+                                    <td>
+                                        <img src="{{ asset(reservationJoinProduct.product.img) }}" alt="preview">
+                                    </td>
+                                    <td>{{ reservationJoinProduct.product.description }}</td>
+                                    <td>${{ reservationJoinProduct.price|number_format(2, ',', '.') }}</td>
+                                    <td>{{ reservationJoinProduct.quantity }}</td>
+                                    <td>${{ reservationJoinProduct.total|number_format(2, ',', '.') }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
             </div>
             <div class="loader"></div>
         </div>

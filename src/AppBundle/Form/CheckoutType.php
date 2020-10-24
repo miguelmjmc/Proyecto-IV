@@ -58,7 +58,7 @@ class CheckoutType extends AbstractType
                     ),
                 )
             )
-            ->add('Confirmar', SubmitType::class, array('attr' => array('class' => 'btn btn-primary')))
+            ->add('submit', SubmitType::class, array('label' => 'checkout_submit', 'attr' => array('class' => 'btn btn-primary')))
         ;
     }
 

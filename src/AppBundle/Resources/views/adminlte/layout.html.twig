@@ -154,8 +154,14 @@
         {% endif %}
 
         {% if is_granted('ROLE_SUPER_ADMIN') %}
-            <li><a href="{{ path('under_construction', { section: 'website' }) }}" data-role="navigation"><i
-                            class="fa fa-desktop"></i><span> Sitio Web</span></a></li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa fa-desktop"></i> <span> Sitio Web</span><span class="pull-right-container"><i
+                                class="fa fa-angle-left pull-right"></i></span></a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ path('slides') }}" data-role="navigation"><i class="fa fa-circle-o"></i> Slides</a>
+                    </li>
+                </ul>
+            </li>
             <li><a href="{{ path('under_construction', { section: 'report' }) }}" data-role="navigation"><i
                             class="fa fa-area-chart"></i><span> Reportes</span></a></li>
             <li><a href="{{ path('users') }}" data-role="navigation"><i class="fa fa-user-plus"></i><span> Usuarios</span></a>

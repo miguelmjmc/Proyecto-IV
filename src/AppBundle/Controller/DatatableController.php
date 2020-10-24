@@ -9,6 +9,7 @@ use AppBundle\Entity\ProductBrand;
 use AppBundle\Entity\ProductCategory;
 use AppBundle\Entity\Reservation;
 use AppBundle\Entity\SessionLog;
+use AppBundle\Entity\Slide;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Entity\VehicleBrand;
@@ -133,7 +134,7 @@ class DatatableController extends Controller
             $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
 
             $data['data'][] = array(
-                $item->getLastUpdate() instanceof \DateTime ? $item->getLastUpdate()->format('Y/m/d H:i:s') : '',
+                $item->getCreatedAt() instanceof \DateTime ? $item->getCreatedAt()->format('Y/m/d H:i:s') : '',
                 $item->getName(),
                 $item->getEmail(),
                 $item->getPhone(),
@@ -163,7 +164,10 @@ class DatatableController extends Controller
             $parameters = array(
                 'suffix' => 'Marca',
                 'actions' => array('show', 'edit', 'delete'),
-                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'ProductBrand', 'id' => $item->getId())),
+                'path' => $this->generateUrl(
+                    'mjmc_crud',
+                    array('entityName' => 'ProductBrand', 'id' => $item->getId())
+                ),
             );
 
             $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
@@ -194,7 +198,10 @@ class DatatableController extends Controller
             $parameters = array(
                 'suffix' => 'Categoría',
                 'actions' => array('show', 'edit', 'delete'),
-                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'ProductCategory', 'id' => $item->getId())),
+                'path' => $this->generateUrl(
+                    'mjmc_crud',
+                    array('entityName' => 'ProductCategory', 'id' => $item->getId())
+                ),
             );
 
             $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
@@ -261,7 +268,10 @@ class DatatableController extends Controller
             $parameters = array(
                 'suffix' => 'Categoría',
                 'actions' => array('show', 'edit', 'delete'),
-                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'VehicleCategory', 'id' => $item->getId())),
+                'path' => $this->generateUrl(
+                    'mjmc_crud',
+                    array('entityName' => 'VehicleCategory', 'id' => $item->getId())
+                ),
             );
 
             $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
@@ -292,7 +302,10 @@ class DatatableController extends Controller
             $parameters = array(
                 'suffix' => 'Marca',
                 'actions' => array('show', 'edit', 'delete'),
-                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'VehicleBrand', 'id' => $item->getId())),
+                'path' => $this->generateUrl(
+                    'mjmc_crud',
+                    array('entityName' => 'VehicleBrand', 'id' => $item->getId())
+                ),
             );
 
             $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
@@ -344,6 +357,41 @@ class DatatableController extends Controller
     /**
      * @return JsonResponse
      *
+     * @Route("/list/slide", name="slide_list")
+     */
+    public function slideListAction()
+    {
+        $collection = $this->getDoctrine()->getRepository(Slide::class)->findAll();
+
+        $data = array('data' => array());
+
+        $count = 0;
+
+        /** @var Slide $item */
+        foreach ($collection as $item) {
+            $count++;
+
+            $parameters = array(
+                'suffix' => 'Slide',
+                'actions' => array('show', 'edit', 'delete'),
+                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'Slide', 'id' => $item->getId())),
+            );
+
+            $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
+
+            $data['data'][] = array(
+                $item->getLastUpdate() instanceof \DateTime ? $item->getLastUpdate()->format('Y/m/d H:i:s') : '',
+                $item->getDescription(),
+                $btn,
+            );
+        }
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @return JsonResponse
+     *
      * @Route("/list/currencyConversion", name="currencyConversion_list")
      */
     public function currencyConversionAction()
@@ -358,7 +406,10 @@ class DatatableController extends Controller
             $parameters = array(
                 'suffix' => 'Conversion de Moneda',
                 'actions' => array('show'),
-                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'CurrencyConversion', 'id' => $item->getId())),
+                'path' => $this->generateUrl(
+                    'mjmc_crud',
+                    array('entityName' => 'CurrencyConversion', 'id' => $item->getId())
+                ),
             );
 
             $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
