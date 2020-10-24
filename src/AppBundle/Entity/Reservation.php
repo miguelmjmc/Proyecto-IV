@@ -60,6 +60,15 @@ class Reservation extends AbstractCrud
     private $phone;
 
     /**
+     * @var string
+     *
+     * @Assert\Length(min = 4, max = 2000)
+     *
+     * @ORM\Column(name="comment", type="text", nullable=true)
+     */
+    private $comment;
+
+    /**
      * @var ReservationStatus
      *
      * @Assert\NotBlank
@@ -166,6 +175,30 @@ class Reservation extends AbstractCrud
     public function getPhone()
     {
         return $this->phone;
+    }
+
+    /**
+     * Set comment.
+     *
+     * @param string|null $comment
+     *
+     * @return Reservation
+     */
+    public function setComment($comment = null)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment.
+     *
+     * @return string|null
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 
     /**

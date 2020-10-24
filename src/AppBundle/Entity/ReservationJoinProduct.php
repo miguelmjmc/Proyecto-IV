@@ -2,9 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Utils\LogTrait;
 use Doctrine\ORM\Mapping as ORM;
-use MJMC\Bundle\CrudBundle\Core\AbstractCrud;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -12,12 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="reservation_join_product")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ReservationJoinProductRepository")
- * @ORM\HasLifecycleCallbacks()
  */
-class ReservationJoinProduct extends AbstractCrud
+class ReservationJoinProduct
 {
-    use LogTrait;
-
     /**
      * @var int
      *
