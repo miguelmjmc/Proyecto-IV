@@ -93,38 +93,6 @@
 
 {% block header_widgets %}
 
-    <li class="dropdown messages-menu">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-envelope-o"></i>
-            <span class="label label-success"></span>
-        </a>
-        <ul class="dropdown-menu">
-            <li class="header">No tiene nuevos mensajes</li>
-            <li class="footer"><a href="#">Ver todos</a></li>
-        </ul>
-    </li>
-    <li class="dropdown notifications-menu">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-bell-o"></i>
-            <span class="label label-warning"></span>
-        </a>
-        <ul class="dropdown-menu">
-            <li class="header">No tiene nuevas notificaciones</li>
-            <li class="footer"><a href="#">Ver todos</a></li>
-        </ul>
-    </li>
-    <li class="dropdown tasks-menu">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-flag-o"></i>
-            <span class="label label-danger"></span>
-        </a>
-        <ul class="dropdown-menu">
-            <li class="header">No tiene nuevas tareas</li>
-            <li class="footer">
-                <a href="#">Ver todos</a>
-            </li>
-        </ul>
-    </li>
     <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <img src="{{ asset(app.user.img|default('bundles/app/img/user.png')) }}" class="user-image"
@@ -177,7 +145,7 @@
         </li>
 
         {% if is_granted('ROLE_ADMIN') %}
-            <li><a href="{{ path('clients') }}" data-role="navigation"><i class="fa fa-users"></i><span> Clientes</span></a>
+            <li><a href="{{ path('reservations') }}" data-role="navigation"><i class="fa fa-handshake-o"></i><span> Reservaciones</span></a>
             </li>
             <li><a href="{{ path('products') }}" data-role="navigation"><i class="fa fa-cubes"></i><span> Productos</span></a>
             </li>

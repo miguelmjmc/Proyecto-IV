@@ -196,3 +196,18 @@ currencyConversion_dollarValue_title: 'Valor del Dolar'
 currencyConversion_euroValue_label: 'Valor del Euro'
 currencyConversion_euroValue_placeholder: '0.00'
 currencyConversion_euroValue_title: 'Valor del Euro'
+
+########################################################################################################################
+# Checkout
+########################################################################################################################
+checkout_name_label: 'Nombre'
+checkout_name_placeholder: 'Jhon Doe'
+checkout_name_title: 'Nombre'
+
+checkout_email_label: 'Correo Electrónico'
+checkout_email_placeholder: 'ejemplo@mail.com'
+checkout_email_title: 'Correo electrónico'
+
+checkout_phone_label: 'Teléfono'
+checkout_phone_placeholder: '(0000) 000-0000'
+checkout_phone_title: 'Telégono de contacto'

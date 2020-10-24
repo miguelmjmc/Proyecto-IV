@@ -26,9 +26,9 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $recentlyUpdatedProducts = $em->getRepository(Product::class)->findBy(array(), array('updatedAt' => 'desc'), 5);
-        $mostVisitedProducts = $em->getRepository(Product::class)->findBy(array(), array('viewCounter' => 'desc'), 5);
-        $mostReservedProducts = $em->getRepository(Product::class)->findBy(array(), array('updatedAt' => 'desc'), 5);
+        $recentlyUpdatedProducts = $em->getRepository(Product::class)->findBy(array(), array('updatedAt' => 'desc'), 4);
+        $mostVisitedProducts = $em->getRepository(Product::class)->findBy(array(), array('viewCounter' => 'desc'), 4);
+        $mostReservedProducts = $em->getRepository(Product::class)->findBy(array(), array('updatedAt' => 'desc'), 4);
 
         $users = $em->getRepository(User::class)->findBy(array(), array('lastLogin' => 'desc'), 12);
 
@@ -119,11 +119,11 @@ class DefaultController extends Controller
     /**
      * @return Response
      *
-     * @Route("/admin/clients", name="clients")
+     * @Route("/admin/reservations", name="reservations")
      */
-    public function clientAction()
+    public function reservationAction()
     {
-        return $this->render('system/client.html.twig');
+        return $this->render('system/reservation.html.twig');
     }
 
     /**

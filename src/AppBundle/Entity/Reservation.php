@@ -31,7 +31,6 @@ class Reservation extends AbstractCrud
     /**
      * @var string
      *
-     * @Assert\NotBlank
      * @Assert\Length(min = 3, max = 50)
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -41,7 +40,6 @@ class Reservation extends AbstractCrud
     /**
      * @var string
      *
-     * @Assert\NotBlank
      * @Assert\Length(min = 10, max = 50)
      * @Assert\Email()
      *
@@ -52,7 +50,6 @@ class Reservation extends AbstractCrud
     /**
      * @var string
      *
-     * @Assert\NotBlank
      * @Assert\Length(min = 10, max = 20)
      *
      * @ORM\Column(name="phone", type="string", length=255)
@@ -71,8 +68,6 @@ class Reservation extends AbstractCrud
     /**
      * @var ReservationStatus
      *
-     * @Assert\NotBlank
-     *
      * @ORM\ManyToOne(targetEntity="ReservationStatus", inversedBy="reservation")
      */
     private $reservationStatus;
@@ -80,9 +75,7 @@ class Reservation extends AbstractCrud
     /**
      * @var ArrayCollection
      *
-     * @Assert\Count(min = 1)
-     *
-     * @ORM\OneToMany(targetEntity="ReservationJoinProduct", mappedBy="reservation")
+     * @ORM\OneToMany(targetEntity="ReservationJoinProduct", mappedBy="reservation", cascade={"all"})
      */
     private $reservationJoinProduct;
 
@@ -93,6 +86,39 @@ class Reservation extends AbstractCrud
     public function __construct()
     {
         $this->reservationJoinProduct = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @return float
+     */
+    public function getAmount() {
+        $total = 0;
+
+        /** @var ReservationJoinProduct $reservationJoinProduct */
+        foreach ($this->reservationJoinProduct as $reservationJoinProduct) {
+            $total+= ($reservationJoinProduct->getPrice() * $reservationJoinProduct->getQuantity());
+        }
+
+        return $total;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus() {
+        if (5 === $this->reservationStatus->getId()) {
+            return '<span class="label label-danger">'.$this->reservationStatus->getName().'</span>';
+        }
+
+        if (4 === $this->reservationStatus->getId()) {
+            return '<span class="label label-success">'.$this->reservationStatus->getName().'</span>';
+        }
+
+        if (1 === $this->reservationStatus->getId()) {
+            return '<span class="label label-info">'.$this->reservationStatus->getName().'</span>';
+        }
+
+        return '<span class="label label-warning">'.$this->reservationStatus->getName().'</span>';
     }
 
     /**

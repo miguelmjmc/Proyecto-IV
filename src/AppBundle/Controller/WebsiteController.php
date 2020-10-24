@@ -5,7 +5,12 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\CompanySettings;
 use AppBundle\Entity\CurrencyConversion;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\Reservation;
+use AppBundle\Entity\ReservationJoinProduct;
+use AppBundle\Entity\ReservationStatus;
+use AppBundle\Form\CheckoutType;
 use AppBundle\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -159,7 +164,7 @@ class WebsiteController extends Controller
         $products = array();
         $quantity = array();
 
-        if ($request->cookies->get('cart')) {
+        if (json_decode($request->cookies->get('cart'), true)) {
             $cart = json_decode($request->cookies->get('cart'), true);
 
             foreach ($cart as $item) {
@@ -193,7 +198,7 @@ class WebsiteController extends Controller
      */
     public function cartAddProductAction(Request $request, Product $product)
     {
-        if ($request->cookies->get('cart')) {
+        if (json_decode($request->cookies->get('cart'), true)) {
             $cart = json_decode($request->cookies->get('cart'), true);
         } else {
             $cart = array();
@@ -220,7 +225,7 @@ class WebsiteController extends Controller
      */
     public function cartRemoveProductAction(Request $request, Product $product)
     {
-        if ($request->cookies->get('cart')) {
+        if (json_decode($request->cookies->get('cart'), true)) {
             $cart = json_decode($request->cookies->get('cart'), true);
         } else {
             $cart = array();
@@ -248,10 +253,14 @@ class WebsiteController extends Controller
      *
      * @return Response
      *
-     * @Route("/system/checkout", name="website_checkout")
+     * @Route("/checkout", name="website_checkout")
      */
     public function checkoutAction(Request $request)
     {
+        if (!json_decode($request->cookies->get('cart'), true)) {
+            return new RedirectResponse($this->generateUrl('website_cart'));
+        }
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $companySettings = $entityManager->getRepository(CompanySettings::class)->find(1);
@@ -268,9 +277,73 @@ class WebsiteController extends Controller
 
         $currencyConversion = isset($currencyConversion[0]) ? $currencyConversion[0] : new CurrencyConversion();
 
+        $form = $this->createForm(CheckoutType::class, new Reservation());
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var EntityManagerInterface $entityManager */
+            $entityManager = $this->getDoctrine()->getManager();
+
+            /** @var ReservationStatus $reservationStatus */
+            $reservationStatus = $entityManager->find(ReservationStatus::class, 1);
+
+            /** @var Reservation $reservation */
+            $reservation = ($form->getData())
+                ->setReservationStatus($reservationStatus);
+            ;
+
+            $cart = json_decode($request->cookies->get('cart'), true);
+
+            $products = array();
+            $quantity = array();
+
+            foreach ($cart as $item) {
+                if (!isset($quantity[$item])) {
+                    $quantity[$item] = 1;
+                    $products[] = $entityManager->getRepository(Product::class)->find($item);
+                } else {
+                    $quantity[$item]++;
+                }
+            }
+
+            /** @var Product $product */
+            foreach ($products as $product) {
+                $reservationJoinProduct = (new ReservationJoinProduct())
+                    ->setProduct($product)
+                    ->setQuantity($quantity[$product->getId()])
+                    ->setPrice($product->getPrice())
+                    ->setReservation($reservation)
+                ;
+
+                $reservation->addReservationJoinProduct($reservationJoinProduct);
+            }
+
+            $entityManager->persist($reservation);
+            $entityManager->flush();
+
+            $response = $this->render(
+                'website/checkout.html.twig',
+                array(
+                    'success' => true,
+                    'form' => $form->createView(),
+                    'companySettings' => $companySettings,
+                    'currencyConversion' => $currencyConversion,
+                )
+            );
+
+            $response->headers->clearCookie('cart');
+
+            return $response;
+        }
+
         return $this->render(
             'website/checkout.html.twig',
-            array('companySettings' => $companySettings, 'currencyConversion' => $currencyConversion)
+            array(
+                'form' => $form->createView(),
+                'companySettings' => $companySettings,
+                'currencyConversion' => $currencyConversion,
+            )
         );
     }
 }

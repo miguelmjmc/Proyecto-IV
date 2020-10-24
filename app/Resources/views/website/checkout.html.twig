@@ -1,5 +1,7 @@
 {% extends 'website/layout.html.twig' %}
 
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
 {% block main %}
     <div class="container" style="margin-top: 80px">
         <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
@@ -12,7 +14,7 @@
                 <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
             </a>
             <span class="stext-109 cl4">
-				Carrito
+				Reserva
 			</span>
         </div>
     </div>
@@ -21,9 +23,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-
+                    <h2>Reservar Productos</h2>
+                </div>
+                <div class="col-12">
+                    Por favor complete el formulario para realizar la reservación de los productos.
+                </div>
+                <div class="col-12 p-t-20">
+                    {{ form (form) }}
                 </div>
             </div>
         </div>
     </section>
+
 {% endblock %}

@@ -292,3 +292,7 @@
 
 
 })(jQuery);
+
+$(document).on('focus', '.phone', function () {
+    $(this).mask('(0000) 000-0000');
+});

@@ -2,12 +2,12 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Client;
 use AppBundle\Entity\CurrencyConversion;
 use AppBundle\Entity\OperationLog;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductBrand;
 use AppBundle\Entity\ProductCategory;
+use AppBundle\Entity\Reservation;
 use AppBundle\Entity\SessionLog;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Vehicle;
@@ -113,29 +113,31 @@ class DatatableController extends Controller
     /**
      * @return JsonResponse
      *
-     * @Route("/list/client", name="client_list")
+     * @Route("/list/reservation", name="reservation_list")
      */
-    public function clientListAction()
+    public function reservationListAction()
     {
-        $collection = $this->getDoctrine()->getRepository(Client::class)->findAll();
+        $collection = $this->getDoctrine()->getRepository(Reservation::class)->findAll();
 
         $data = array('data' => array());
 
-        /** @var Client $item */
+        /** @var Reservation $item */
         foreach ($collection as $item) {
 
             $parameters = array(
-                'suffix' => 'Cliente',
+                'suffix' => 'Reservación',
                 'actions' => array('show', 'edit'),
-                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'Client', 'id' => $item->getId())),
+                'path' => $this->generateUrl('mjmc_crud', array('entityName' => 'Reservation', 'id' => $item->getId())),
             );
 
             $btn = $this->renderView('@App/base/table_btn.html.twig', $parameters);
 
             $data['data'][] = array(
                 $item->getLastUpdate() instanceof \DateTime ? $item->getLastUpdate()->format('Y/m/d H:i:s') : '',
-                $item->getIdentificationNumber(),
-                $item->getFullName(),
+                $item->getName(),
+                $item->getEmail(),
+                $item->getPhone(),
+                '$'.number_format($item->getAmount(), 2, ',', '.'),
                 $item->getStatus(),
                 $btn,
             );
