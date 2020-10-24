@@ -121,6 +121,13 @@ class Product extends AbstractCrud
      */
     private $vehicle;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="ReservationJoinProduct", mappedBy="product")
+     */
+    private $reservationJoinProduct;
+
 
     /**
      * Constructor
@@ -129,6 +136,7 @@ class Product extends AbstractCrud
     {
         $this->productCategory = new \Doctrine\Common\Collections\ArrayCollection();
         $this->vehicle = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->reservationJoinProduct = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -403,5 +411,41 @@ class Product extends AbstractCrud
     public function getVehicle()
     {
         return $this->vehicle;
+    }
+
+    /**
+     * Add reservationJoinProduct.
+     *
+     * @param \AppBundle\Entity\ReservationJoinProduct $reservationJoinProduct
+     *
+     * @return Product
+     */
+    public function addReservationJoinProduct(\AppBundle\Entity\ReservationJoinProduct $reservationJoinProduct)
+    {
+        $this->reservationJoinProduct[] = $reservationJoinProduct;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservationJoinProduct.
+     *
+     * @param \AppBundle\Entity\ReservationJoinProduct $reservationJoinProduct
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeReservationJoinProduct(\AppBundle\Entity\ReservationJoinProduct $reservationJoinProduct)
+    {
+        return $this->reservationJoinProduct->removeElement($reservationJoinProduct);
+    }
+
+    /**
+     * Get reservationJoinProduct.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservationJoinProduct()
+    {
+        return $this->reservationJoinProduct;
     }
 }
