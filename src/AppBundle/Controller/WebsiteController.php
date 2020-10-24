@@ -242,4 +242,35 @@ class WebsiteController extends Controller
 
         return $response;
     }
+
+    /**
+     * @param  Request  $request
+     *
+     * @return Response
+     *
+     * @Route("/system/checkout", name="website_checkout")
+     */
+    public function checkoutAction(Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $companySettings = $entityManager->getRepository(CompanySettings::class)->find(1);
+
+        if (!$companySettings instanceof CompanySettings) {
+            $companySettings = new CompanySettings();
+        }
+
+        $currencyConversion = $entityManager->getRepository(CurrencyConversion::class)->findBy(
+            array(),
+            array('createdAt' => 'desc'),
+            1
+        );
+
+        $currencyConversion = isset($currencyConversion[0]) ? $currencyConversion[0] : new CurrencyConversion();
+
+        return $this->render(
+            'website/checkout.html.twig',
+            array('companySettings' => $companySettings, 'currencyConversion' => $currencyConversion)
+        );
+    }
 }

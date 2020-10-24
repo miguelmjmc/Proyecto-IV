@@ -3,7 +3,7 @@
 {% block main %}
     <div class="container" style="margin-top: 80px">
         <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-            <a href="" class="stext-109 cl8 hov-cl1 trans-04">
+            <a href="{{ path('website_homepage') }}" class="stext-109 cl8 hov-cl1 trans-04">
                 Inicio
                 <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
             </a>
@@ -12,6 +12,7 @@
 			</span>
         </div>
     </div>
+
     <form class="bg0 p-t-75 p-b-85">
         <div class="container">
             <div class="row">
@@ -86,9 +87,11 @@
 								</span>
                             </div>
                         </div>
-                        <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                            Comfirmar
-                        </button>
+                        {% if 0 < products|length %}
+                            <a href="{{ path('website_checkout') }}" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                                Comfirmar
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
